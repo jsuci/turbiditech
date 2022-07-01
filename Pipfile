@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-allauth = "*"
+djangorestframework = "*"
+pillow = "*"
+gunicorn = "*"
+psycopg2 = "*"
+django-heroku = "*"
+whitenoise = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "*"
