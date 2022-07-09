@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-#jj(04f=*q^ze&yxaf@j(cvhh2%*iyuvq7q!dedf*4xyho1hyb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost'
+]
 
 
 # Application definition
@@ -40,8 +42,19 @@ INSTALLED_APPS = [
 
 
     'api',
+    'accounts',
+    'core',
     'rest_framework',
+    'allauth',
+    'allauth.account',
 ]
+
+
+# allauth configuration
+SITE_ID = 1
+ACCOUNT_LOGOUT_ON_GET = True
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +83,12 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 WSGI_APPLICATION = 'turbiditech.wsgi.application'
 
