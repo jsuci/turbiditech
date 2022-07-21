@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#jj(04f=*q^ze&yxaf@j(cvhh2%*iyuvq7q!dedf*4xyho1hyb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost'
@@ -56,6 +56,7 @@ SITE_ID = 1
 ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
+ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

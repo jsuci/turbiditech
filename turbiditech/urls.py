@@ -2,8 +2,9 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from api.views import UserViewSet, GroupViewSet
-from accounts.views import AccountLoginView, AccountLogoutView
-from core.views import  HomeRedirectView, DashboardView
+from accounts.views import (AccountLoginView, AccountLogoutView,
+                            AccountSignupView)
+from core.views import HomeRedirectView, DashboardView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -13,7 +14,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
     path('login/', AccountLoginView.as_view(), name='account_login'),
-    path('logout/', AccountLogoutView.as_view()),
+    path('logout/', AccountLogoutView.as_view(), name='account_logout'),
+    path('signup/', AccountSignupView.as_view(), name='account_signup'),
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     path('', HomeRedirectView.as_view()),
 ]
