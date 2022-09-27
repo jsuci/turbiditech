@@ -1,58 +1,40 @@
-from django.views.generic.base import RedirectView
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from allauth.account.views import LoginView, LogoutView, SignupView
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
+# rest_framework
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+# django
+from django.shortcuts import render
+from django.http import HttpResponse
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+@api_view(['GET'])
+def get_users(request):
+    person = {
+        'name': 'Sam',
+        'age': 33
+    }
+    return Response(person)
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+def login(request):
+    context = {
+        'header_title': 'Log In | Turbiditech AI'
+    }
+    return render(request, 'login.html', context)
 
 
-class AccountLoginView(LoginView):
-    template_name = 'login.html'
-
-    def get_context_data(self, **kwargs):
-        ret = super(LoginView, self).get_context_data(**kwargs)
-        return ret
+def logout(request):
+    return render(request, 'logout.html')
 
 
-class AccountLogoutView(LogoutView):
-    def get_context_data(self, **kwargs):
-        ret = super(LogoutView, self).get_context_data(**kwargs)
-        return ret
+def register(request):
+    context = {
+        'header_title': 'Register | Turbiditech AI'
+    }
+    return render(request, 'register.html', context)
 
-
-class AccountSignupView(SignupView):
-    template_name = 'signup.html'
-
-    def get_context_data(self, **kwargs):
-        ret = super(SignupView, self).get_context_data(**kwargs)
-        return ret
-
-
-class HomeRedirectView(RedirectView):
-    permanent = True
-    pattern_name = 'dashboard'
-
-
-class DashboardView(LoginRequiredMixin, TemplateView):
-    login_url = '/login/'
-    template_name = "dashboard.html"
+def dashboard(request):
+    context = {
+        'header_title': 'Register | Turbiditech AI'
+    }
+    return render(request, 'dashboard.html', context)
