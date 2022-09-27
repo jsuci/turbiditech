@@ -97,11 +97,10 @@ html, body {
     position: fixed;
     width: 300px;
     top: 0px;
-    left: -20px;
-    padding: 50px;
-    padding-top: 125px;
+    left: 0px;
+    padding-top: 100px;
 
-    background: #ededed;
+    background: #363740;
     list-style-type: none;
     -webkit-font-smoothing: antialiased;
 
@@ -113,14 +112,17 @@ html, body {
     height: 100%;
 }
 
-#menu li {
-    padding: 10px 0;
-    font-size: 22px;
+.content li {
+    padding: 15px 0 15px 30px;
+    font-size: 1.2rem;
+    color: #9a9999;
 }
 
-/*
-* And let's slide it in from the left
-*/
+.content a li:hover, .content li.active a {
+    background-color: #2C2C2C;
+    color:#dbdbdb;
+} 
+
 #menuToggle input:checked ~ ul
 {
 transform: none;
