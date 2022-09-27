@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#jj(04f=*q^ze&yxaf@j(cvhh2%*iyuvq7q!dedf*4xyho1hyb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost'
+    '127.0.0.1'
 ]
 
 
@@ -41,9 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-
-    'api',
-    'accounts',
     'core',
     'rest_framework',
     'allauth',
@@ -56,7 +54,7 @@ SITE_ID = 1
 ACCOUNT_LOGOUT_ON_GET = True
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/login/'
-ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
+# ACCOUNT_FORMS = {'signup': 'allauth.account.forms.SignupForm'}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,7 +72,7 @@ ROOT_URLCONF = 'turbiditech.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,11 +150,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_URL = 'static/'
-STATICFILES_DIRS = (
+
+# For deployment
+STATIC_ROOT = BASE_DIR / 'staticfiles',
+
+# For local development
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
     BASE_DIR / 'static',
-)
+]
+
+# Heroku staticfiles
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type

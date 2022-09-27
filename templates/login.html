@@ -1,3 +1,5 @@
+
+{% load static %}
 {% load i18n %}
 
 
@@ -16,6 +18,9 @@
 
   <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
 </form>
-<h3>Hello World</h3>
+
+
+<img src = "{% static 'flyer.jpg' %}">
+
 
 {% endblock %}
