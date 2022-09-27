@@ -8,9 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bulma CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static 'core/css/bulma.min.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.png' %}">
+    <script src="{% static 'core/js/jquery.min.js' %}" charset="utf-8"></script>
+
 
     <title>
         {% block head_title %}

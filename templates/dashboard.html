@@ -6,39 +6,11 @@
 
 {% block content %}
 
-<nav role="navigation">
-    <div id="menuToggle">
-      <input type="checkbox" />
-      
-      <span></span>
-      <span></span>
-      <span></span>
+<section class="section mt-6 ">
+    <div class="container mt-6 is-widescreen">
 
+        {% include "includes/sidebar.html" %}
 
-
-      <ul id="menu">
-        <div class="is-flex mb-3 is-flex-direction-column is-flex-wrap-nowrap is-align-items-center">
-            <figure class="image is-96x96">
-                <img class="is-rounded" src="{% static 'core/img/profile.png'%}">
-            </figure>
-            <p class="subtitle is-4 mt-3 has-text-grey-lighter">Jamil Magsuci</p>
-        </div>
-
-        <div class="content mt-6">
-            <a href="dashboard/"><li>Overview</li></a>
-            <a href="#"><li>
-                Browse Devices
-            </li></a>
-            <a href="#"><li>Add Device</li></a>
-            <a href="#"><li>Log out</li></a>
-        </div>
-
-      </ul>
-    </div>
-</nav>
-
-<section class="section mt-6">
-    <div class="container mt-6">
         <div class="columns is-centered is-variable is-8">
             <div class="column is-4">
                 <div class="box">
@@ -59,7 +31,7 @@
     </div>
 </section>
 
-
+<script src="{% static 'core/js/main.js' %}" charset="utf-8"></script>
 
 
 {% endblock %} 
