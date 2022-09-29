@@ -35,6 +35,40 @@ def register(request):
 
 def dashboard(request):
     context = {
-        'header_title': 'Register | Turbiditech AI'
+        'header_title': 'Register | Turbiditech AI',
+        'box_contents': [
+            {
+                'detector_id': 1,
+                'detector_name': 'Detector 1',
+                'turbidity': 'clean',
+                'device_status': 'on',
+                'valve_Status': 'on',
+                'location': 'WTP Upper Area'
+            },
+            {
+                'detector_id': 2,
+                'detector_name': 'Detector 2',
+                'turbidity': 'dirty',
+                'device_status': 'on',
+                'valve_Status': 'off',
+                'location': 'WTP Lower Area'
+            },
+            {
+                'detector_id': 3,
+                'detector_name': 'Detector 3',
+                'turbidity': 'clean',
+                'device_status': 'on',
+                'valve_Status': 'on',
+                'location': 'Zone 7 Linabo'
+            },
+            {
+                'detector_id': 4,
+                'detector_name': 'Detector 4',
+                'turbidity': 'clean',
+                'device_status': 'on',
+                'valve_Status': 'on',
+                'location': 'Maramag, Bukidnon'
+            }
+        ]
     }
     return render(request, 'dashboard.html', context)

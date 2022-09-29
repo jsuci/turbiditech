@@ -108,3 +108,19 @@ img {
 .header {
     background: #33363a;
 }
+
+
+/* table styles */
+div.box td {
+    padding: 12px 12px
+}
+
+div.box td:nth-child(1) {
+    font-weight: 400;
+}
+
+div.box td:nth-child(2) {
+    text-align: right;
+    font-weight: 500;
+    color:rgb(93, 93, 93);
+}
