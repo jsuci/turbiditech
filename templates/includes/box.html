@@ -1,47 +1,51 @@
-<div class="column is-4">
-    <div class="box">
-        <h5 class="title is-5 has-text-centered">{{ box_content.detector_name }}</h5>
-        <table class="table is-striped is-fullwidth is-hoverable">
-            <tbody>
-                <tr>
-                    <td>Turbidity Status</td>
-                    {% if box_content.turbidity == "dirty" %}
-                    <td class="has-text-right has-background-danger">
-                            <span class="has-text-white">{{ box_content.turbidity }}</span>                        
-                    </td>
-                    {% else %}
-                    <td class="has-text-right">
-                        <span class="has-text-primary-dark">{{ box_content.turbidity }}</span>                        
-                    </td>
-                    {% endif %}
 
-                </tr>
-                <tr>
-                    <td>Device Status</td>
-                    <td>
-                        {% if box_content.device_status == "off" %}
-                            <span class="has-text-danger">{{ box_content.device_status }}</span>
-                        {% else %}
-                            <span class="has-text-primary-dark">{{ box_content.device_status }}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td>Valve Status</td>
-                    <td>
-                        {% if box_content.valve_Status == "off" %}
-                            <span class="has-text-danger">{{ box_content.valve_Status }}</span>
-                        {% else %}
-                            <span class="has-text-primary-dark">{{ box_content.valve_Status }}</span>
-                        {% endif %}
-                    </td>
-                    <!-- <td><span>{{ box_content.valve_Status }}</span></td> -->
-                </tr>
-                <tr>
-                    <td>Location</td>
-                    <td><span>{{ box_content.location }}</span></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="column is-4">
+        <a href="./device/{{ box_content.detector_id }}" class="box-link">
+            <div class="box">
+                <h5 class="title is-5 has-text-centered">{{ box_content.detector_name }}</h5>
+                <table class="table is-striped is-fullwidth is-hoverable">
+                    <tbody>
+                        <tr>
+                            <td>Turbidity Status</td>
+                            {% if box_content.turbidity == "dirty" %}
+                            <td class="has-text-right has-background-danger">
+                                    <span class="has-text-white">{{ box_content.turbidity }}</span>                        
+                            </td>
+                            {% else %}
+                            <td class="has-text-right">
+                                <span class="has-text-primary-dark">{{ box_content.turbidity }}</span>                        
+                            </td>
+                            {% endif %}
+
+                        </tr>
+                        <tr>
+                            <td>Device Status</td>
+                            <td>
+                                {% if box_content.device_status == "off" %}
+                                    <span class="has-text-danger">{{ box_content.device_status }}</span>
+                                {% else %}
+                                    <span class="has-text-primary-dark">{{ box_content.device_status }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Valve Status</td>
+                            {% if box_content.valve_status == "off" %}
+                            <td class="has-text-right has-background-danger">
+                                    <span class="has-text-white">{{ box_content.valve_status }}</span>                        
+                            </td>
+                            {% else %}
+                            <td class="has-text-right">
+                                <span class="has-text-primary-dark">{{ box_content.valve_status }}</span>                        
+                            </td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td><span>{{ box_content.location }}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </a>
     </div>
-</div>

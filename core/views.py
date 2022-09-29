@@ -42,7 +42,7 @@ def dashboard(request):
                 'detector_name': 'Detector 1',
                 'turbidity': 'clean',
                 'device_status': 'on',
-                'valve_Status': 'on',
+                'valve_status': 'on',
                 'location': 'WTP Upper Area'
             },
             {
@@ -50,7 +50,7 @@ def dashboard(request):
                 'detector_name': 'Detector 2',
                 'turbidity': 'dirty',
                 'device_status': 'on',
-                'valve_Status': 'off',
+                'valve_status': 'off',
                 'location': 'WTP Lower Area'
             },
             {
@@ -58,7 +58,7 @@ def dashboard(request):
                 'detector_name': 'Detector 3',
                 'turbidity': 'clean',
                 'device_status': 'on',
-                'valve_Status': 'on',
+                'valve_status': 'on',
                 'location': 'Zone 7 Linabo'
             },
             {
@@ -66,7 +66,7 @@ def dashboard(request):
                 'detector_name': 'Detector 4',
                 'turbidity': 'clean',
                 'device_status': 'on',
-                'valve_Status': 'on',
+                'valve_status': 'on',
                 'location': 'Maramag, Bukidnon'
             }
         ]

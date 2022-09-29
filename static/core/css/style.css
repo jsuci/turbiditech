@@ -110,6 +110,18 @@ img {
 }
 
 
+/* box styles */
+.box-link {
+    display: block;
+}
+
+.box:hover {
+    box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.57);
+    -webkit-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 0px 22px 5px rgba(0,0,0,0.57);
+}
+
+
 /* table styles */
 div.box td {
     padding: 12px 12px
