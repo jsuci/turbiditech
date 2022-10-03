@@ -68,6 +68,14 @@ def dashboard(request):
                 'device_status': 'on',
                 'valve_status': 'on',
                 'location': 'Maramag, Bukidnon'
+            },
+            {
+                'detector_id': 5,
+                'detector_name': 'Detector 5',
+                'turbidity': 'clean',
+                'device_status': 'on',
+                'valve_status': 'on',
+                'location': 'Mulmac, Macabalan'
             }
         ]
     }
