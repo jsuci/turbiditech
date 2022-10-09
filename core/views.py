@@ -66,7 +66,7 @@ def dashboard(request):
                 'detector_name': 'Detector 4',
                 'turbidity': 'clean',
                 'device_status': 'on',
-                'valve_status': 'on',
+                'valve_status': 'off',
                 'location': 'Maramag, Bukidnon'
             },
             {
@@ -76,7 +76,7 @@ def dashboard(request):
                 'device_status': 'on',
                 'valve_status': 'on',
                 'location': 'Mulmac, Macabalan'
-            }
+            },
         ]
     }
     return render(request, 'dashboard.html', context)
