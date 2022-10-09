@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "turbiditech"
+version = "0.1.0"
+description = "A tool that detects if the water is turbid or not"
+authors = ["jsuci <jsuci.jsuci@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "*"
+django-allauth = "*"
+djangorestframework = "*"
+pillow = "*"
+psycopg2 = "*"
+whitenoise = "*"
+dj-database-url = "^1.0.0"
+daphne = "^4.0.0"
+psycopg2-binary = "^2.9.4"
+python-dotenv = "^0.21.0"
+
+
+[tool.poetry.dev-dependencies]
+flake8 = "*"
+autopep8 = "*"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
