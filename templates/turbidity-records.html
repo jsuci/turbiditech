@@ -1,0 +1,59 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load i18n %}
+{% block head_title %} Turbidity Records | Turbiditech AI {% endblock %}
+
+
+{% block content %}
+
+<section class="section mt-6 ">
+    <div class="container mt-6">
+
+        {% include "includes/sidebar.html" %}
+
+        <div class="columns is-centered is-variable is-8 is-offset-2">
+            
+            <div class="column">
+                <div class="panel is-primary has-background-white">
+                    <p class="panel-heading">
+                        {{ device_name }} Records
+                    </p>
+                    <div class="panel-block">
+                        <div class="table-container is-full-table">
+                            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Image Link</th>
+                                        <th>Vavle Status</th>
+                                        <th>Turbidity Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for record in records%}
+                                        <tr>
+                                            <td>{{ record.capture_id }}</td>
+                                            <td>{{ record.capture_date }}</td>
+                                            <td>{{ record.capture_time }}</td>
+                                            <td><a href="{{ record.image_link }}" target="_blank">{{ record.image_link }}</a></td>
+                                            <td>{{ record.valve_status }}</td>
+                                            <td>{{ record.turbidity_status }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- end panel-block -->
+                </div>
+            </div> <!-- end column -->
+
+        </div> 
+    </div>
+</section>
+
+<script src="{% static 'core/js/main.js' %}" charset="utf-8"></script>
+
+
+{% endblock %} 

@@ -1,4 +1,5 @@
 # rest_framework
+from multiprocessing import context
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -31,7 +32,9 @@ def register(request):
     context = {
         'header_title': 'Register | Turbiditech AI'
     }
+
     return render(request, 'register.html', context)
+
 
 def dashboard(request):
     context = {
@@ -79,4 +82,74 @@ def dashboard(request):
             },
         ]
     }
+
     return render(request, 'dashboard.html', context)
+
+
+def turbidity_records(request, device_id):
+
+    # use device_id to locate in db the specific entry or device
+    context = {
+        'device_name': 'Detector 1',
+        'records': [
+            {
+                'capture_id': 1,
+                'capture_date': '10/12/2022',
+                'capture_time': '10:42 AM',
+                'image_link': 'https://turbiditech.fly.dev/captured/img_20221010.jpg',
+                'valve_status': 'off',
+                'turbidity_status': 'dirty',
+            },
+            {
+                'capture_id': 2,
+                'capture_date': '10/12/2022',
+                'capture_time': '10:42 AM',
+                'image_link': 'https://turbiditech.fly.dev/captured/img_20221010.jpg',
+                'valve_status': 'on',
+                'turbidity_status': 'clean',
+            }
+        ]
+    }
+
+    return render(request, 'turbidity-records.html', context)
+
+
+def list_devices(request):
+    context = {
+        'devices': [
+            {
+                'device_id': 1,
+                'device_name': 'Detector 1',
+                'device_status': 'active',
+                'device_location': 'WTP Upper Area',
+                'install_date': '10/12/2022',
+                'managed_by': 'Jamil B. Magsuci'
+            },
+            {
+                'device_id': 2,
+                'device_name': 'Detector 2',
+                'device_status': 'active',
+                'device_location': 'Zone 7 Linabo',
+                'install_date': '10/25/2022',
+                'managed_by': 'Jamil B. Magsuci'
+            }
+        ],
+        'components': [
+            {
+                'component_id': 1,
+                'component_name': 'Camera Module',
+                'device_linked': 'Detector 1',
+                'install_date': '10/25/2022',
+                'managed_by': 'Jamil B. Magsuci'
+            },
+            {
+                'component_id': 2,
+                'component_name': 'Solenoid Valve',
+                'device_linked': 'Detector 2',
+                'install_date': '10/25/2022',
+                'managed_by': 'Jamil B. Magsuci'
+            }
+        ]
+    }
+
+    return render(request, 'list-devices.html', context)

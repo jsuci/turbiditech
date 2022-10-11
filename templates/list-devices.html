@@ -1,0 +1,100 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load i18n %}
+{% block head_title %} Turbidity Records | Turbiditech AI {% endblock %}
+
+
+{% block content %}
+
+<section class="section mt-6 ">
+    <div class="container mt-6">
+
+        {% include "includes/sidebar.html" %}
+
+        <div class="columns is-centered is-variable is-8 is-offset-2">
+            <div class="column">
+                <div class="panel is-primary has-background-white">
+                    <p class="panel-heading">
+                        Device List
+                    </p>
+                    <div class="panel-block">
+                        <div class="table-container is-full-table">
+                            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Location</th>
+                                        <th>Install Date</th>
+                                        <th>Manage By</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for device in devices%}
+                                        <tr>
+                                            <td>{{ device.device_id }}</td>
+                                            <td>{{ device.device_name }}</td>
+                                            <td>{{ device.device_status }}</td>
+                                            <td>{{ device.device_location }}</td>
+                                            <td>{{ device.install_date }}</td>
+                                            <td>{{ device.managed_by }}</td>
+                                            <td><a href="#">Delete</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- end panel-block -->
+                </div>
+                <button class="button is-info is-pulled-right">Add Device</button>
+            </div> <!-- end column -->
+
+        </div>
+
+        <div class="columns is-centered is-variable is-8 is-offset-2 mt-6">
+            <div class="column">
+                <div class="panel is-primary has-background-white">
+                    <p class="panel-heading">
+                        Component List
+                    </p>
+                    <div class="panel-block">
+                        <div class="table-container is-full-table">
+                            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Device Linked</th>
+                                        <th>Install Date</th>
+                                        <th>Manage By</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for compo in components%}
+                                        <tr>
+                                            <td>{{ compo.component_id }}</td>
+                                            <td>{{ compo.component_name }}</td>
+                                            <td>{{ compo.device_linked }}</td>
+                                            <td>{{ compo.install_date }}</td>
+                                            <td>{{ compo.managed_by }}</td>
+                                            <td><a href="#">Delete</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- end panel-block -->
+                </div>
+                <button class="button is-info is-pulled-right ">Add Component</button>
+            </div> <!-- end column -->
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'core/js/main.js' %}" charset="utf-8"></script>
+
+
+{% endblock %} 
