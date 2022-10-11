@@ -1,0 +1,35 @@
+<div class="content is-fullwidth">
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+
+        <div class="field">
+            <label class="label">Device Name</label>
+            <div class="control">
+              <input class="input" type="text">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Location</label>
+            <div class="control">
+              <input class="input" type="text">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label class="label">Install Date</label>
+            <div class="control">
+              <input class="input" type="date">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label class="label">Manage By</label>
+            <div class="control">
+              <input class="input" type="text">
+            </div>
+        </div>
+    </form>
+</div>

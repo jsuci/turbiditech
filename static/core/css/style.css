@@ -188,8 +188,14 @@ div.box td:nth-child(2) {
     left: 32px;
 }
 
-/* table records */
-.is-full-table {
+
+
+/* other helpers */
+.is-borderless {
+    border: 0;
+}
+
+.is-full-width {
     width: 100%;
     max-width: 100%;
 }

@@ -6,6 +6,7 @@ from rest_framework.response import Response
 # django
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib import messages
 
 
 @api_view(['GET'])
@@ -115,6 +116,10 @@ def turbidity_records(request, device_id):
 
 
 def list_devices(request):
+    # notification message after successful form submit
+    # must be placed inside if form.is_valid()
+    # messages.add_message(request, messages.INFO, 'Form submitted successfully.')
+
     context = {
         'devices': [
             {

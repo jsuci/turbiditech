@@ -18,7 +18,7 @@
                         Device List
                     </p>
                     <div class="panel-block">
-                        <div class="table-container is-full-table">
+                        <div class="table-container is-full-width">
                             <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                                 <thead>
                                     <tr>
@@ -48,7 +48,25 @@
                         </div>
                     </div> <!-- end panel-block -->
                 </div>
-                <button class="button is-info is-pulled-right">Add Device</button>
+
+                <!-- add device modal -->
+                <div class="modal" id="add-device-modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                      <header class="modal-card-head is-borderless">
+                        <p class="modal-card-title title">Add Device</p>
+                      </header>
+                      <section class="modal-card-body">
+                        {% include "includes/add-device.html" %}
+                      </section>
+                      <footer class="modal-card-foot is-justify-content-flex-end is-borderless">
+                        <button class="button is-success">Save</button>
+                        <button class="button">Cancel</button>
+                      </footer>
+                    </div>
+                </div>
+
+                <button class="button is-info is-pulled-right js-modal-trigger" data-target="add-device-modal">Add Device</button>
             </div> <!-- end column -->
 
         </div>
@@ -60,7 +78,7 @@
                         Component List
                     </p>
                     <div class="panel-block">
-                        <div class="table-container is-full-table">
+                        <div class="table-container is-full-width">
                             <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                                 <thead>
                                     <tr>
@@ -88,7 +106,35 @@
                         </div>
                     </div> <!-- end panel-block -->
                 </div>
-                <button class="button is-info is-pulled-right ">Add Component</button>
+
+                <!-- add component modal -->
+                <div class="modal" id="add-component-modal">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                      <header class="modal-card-head is-borderless">
+                        <p class="modal-card-title title">Add Component</p>
+                      </header>
+                      <section class="modal-card-body">
+                        {% include "includes/add-component.html" with devices=devices %}
+                      </section>
+                      <footer class="modal-card-foot is-justify-content-flex-end is-borderless">
+                        <button class="button is-success">Save</button>
+                        <button class="button">Cancel</button>
+                      </footer>
+                    </div>
+                </div>
+                <button class="button is-info is-pulled-right js-modal-trigger" data-target="add-component-modal">Add Component</button>
+                
+                
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message  }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+
             </div> <!-- end column -->
         </div>
     </div>
