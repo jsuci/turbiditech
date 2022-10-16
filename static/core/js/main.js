@@ -59,7 +59,7 @@ $(document).ready(function() {
         const $target = document.getElementById(modal);
     
         $trigger.addEventListener('click', () => {
-        openModal($target);
+            openModal($target);
         });
     });
     

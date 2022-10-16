@@ -50,7 +50,6 @@ class CustomUser(AbstractBaseUser):
     is_active       = models.BooleanField(default=True)
     is_admin        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)
-    # is_staff        = models.BooleanField(default=False)
 
     # custom user fields
     first_name      = models.CharField(verbose_name='First Name', max_length=60)
@@ -60,6 +59,9 @@ class CustomUser(AbstractBaseUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
+
+    class Meta:
+        verbose_name = 'user'
 
 
     def __str__(self):
@@ -74,3 +76,22 @@ class CustomUser(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+
+class Device:
+    class DeviceStatus(models.TextChoices):
+        ONLINE = 'online', 'online'
+        OFFLINE = 'offline', 'offline'
+
+    device_name     = models.CharField(verbose_name='Device Name', max_length=120)
+    location        = models.CharField(verbose_name='Location', max_length=120)
+    install_date    = models.DateField(verbose_name='Install Date')
+    device_status   = models.CharField(max_length=7, choices=DeviceStatus.choices, default=DeviceStatus.ONLINE)
+
+    class Meta:
+        verbose_name = 'device'
+
+class Component:
+    pass
+
+class TurbidityRecords:
+    pass

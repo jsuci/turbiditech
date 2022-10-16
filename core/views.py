@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 
 
+# api
 @api_view(['GET'])
 def get_users(request):
     person = {
@@ -45,7 +46,7 @@ def dashboard(request):
                 'detector_id': 1,
                 'detector_name': 'Detector 1',
                 'turbidity': 'clean',
-                'device_status': 'on',
+                'device_status': 'online',
                 'valve_status': 'on',
                 'location': 'WTP Upper Area'
             },
@@ -53,7 +54,7 @@ def dashboard(request):
                 'detector_id': 2,
                 'detector_name': 'Detector 2',
                 'turbidity': 'dirty',
-                'device_status': 'on',
+                'device_status': 'online',
                 'valve_status': 'off',
                 'location': 'WTP Lower Area'
             },
@@ -61,7 +62,7 @@ def dashboard(request):
                 'detector_id': 3,
                 'detector_name': 'Detector 3',
                 'turbidity': 'clean',
-                'device_status': 'on',
+                'device_status': 'online',
                 'valve_status': 'on',
                 'location': 'Zone 7 Linabo'
             },
@@ -69,15 +70,15 @@ def dashboard(request):
                 'detector_id': 4,
                 'detector_name': 'Detector 4',
                 'turbidity': 'clean',
-                'device_status': 'on',
+                'device_status': 'online',
                 'valve_status': 'off',
                 'location': 'Maramag, Bukidnon'
             },
             {
                 'detector_id': 5,
                 'detector_name': 'Detector 5',
-                'turbidity': 'clean',
-                'device_status': 'on',
+                'turbidity': 'dirty',
+                'device_status': 'offline',
                 'valve_status': 'on',
                 'location': 'Mulmac, Macabalan'
             },
@@ -90,6 +91,7 @@ def dashboard(request):
 def turbidity_records(request, device_id):
 
     # use device_id to locate in db the specific entry or device
+    
     context = {
         'device_name': 'Detector 1',
         'records': [
@@ -125,7 +127,7 @@ def list_devices(request):
             {
                 'device_id': 1,
                 'device_name': 'Detector 1',
-                'device_status': 'active',
+                'device_status': 'online',
                 'device_location': 'WTP Upper Area',
                 'install_date': '10/12/2022',
                 'managed_by': 'Jamil B. Magsuci'
@@ -133,7 +135,7 @@ def list_devices(request):
             {
                 'device_id': 2,
                 'device_name': 'Detector 2',
-                'device_status': 'active',
+                'device_status': 'online',
                 'device_location': 'Zone 7 Linabo',
                 'install_date': '10/25/2022',
                 'managed_by': 'Jamil B. Magsuci'
