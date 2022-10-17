@@ -12,7 +12,6 @@ html, body {
     position: absolute;
     color: rgb(0, 0, 0);
     font-size: 35px;
-    top: -60px;
     cursor: pointer;
 }
 
