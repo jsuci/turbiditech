@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="{% static 'core/img/favicon.png' %}">
     <script src="{% static 'core/js/jquery.min.js' %}" charset="utf-8"></script>
-
+    <script src="{% static 'core/js/header.js' %}" charset="utf-8"></script>
 
     <title>
         {% block head_title %}
@@ -25,7 +25,9 @@
 
   {% block content %}
 
-  {% endblock %} 
+  {% endblock %}
+
+  <script src="{% static 'core/js/footer.js' %}" charset="utf-8"></script>
 
   </body>
 </html>

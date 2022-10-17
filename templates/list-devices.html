@@ -1,7 +1,7 @@
 {% extends 'header.html' %}
 {% load static %}
 {% load i18n %}
-{% block head_title %} Turbidity Records | Turbiditech AI {% endblock %}
+{% block head_title %} List Devices | Turbiditech AI {% endblock %}
 
 
 {% block content %}
@@ -11,8 +11,16 @@
 
         {% include "includes/sidebar.html" %}
 
-        <div class="columns is-centered is-variable is-8 is-offset-2">
-            <div class="column">
+        <div class="columns">
+            <div class="column is-variable is-10 is-offset-1">
+
+                <nav class="breadcrumb is-medium has-arrow-separator" aria-label="breadcrumbs">
+                    <ul>
+                      <li><a href="{% url 'dashboard' %}">Home</a></li>
+                      <li class="is-active" ><a href="#" aria-current="page">List Devices</a></li>
+                    </ul>
+                </nav>
+
                 <div class="panel is-primary has-background-white">
                     <p class="panel-heading">
                         Device List
@@ -28,7 +36,7 @@
                                         <th>Location</th>
                                         <th>Install Date</th>
                                         <th>Manage By</th>
-                                        <th></th>
+                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,10 +51,10 @@
                                             <td class="has-text-centered">
                                                 <span class="icon-text is-flex-wrap-nowrap">
                                                     <span class="icon mr-4 is-clickable">
-                                                      <i class="fa fa-trash has-text-danger"></i>
+                                                      <i class="fa fa-trash has-text-danger" onclick="confirmDeleteDevice(`{% url 'turbidity_records' device.device_id %}`)"></i>
                                                     </span>
                                                     <span class="icon is-clickable">
-                                                        <i class="fa fa-pen has-text-primary js-modal-trigger" data-target="edit-device-modal"></i>
+                                                        <a href="{% url 'edit_device' device.device_id %}"><i class="fa fa-pen has-text-primary"></i></a>
                                                     </span>
                                                 </span>
                                             </td>
@@ -58,47 +66,30 @@
                     </div> <!-- end panel-block -->
                 </div>
 
-                <!-- edit device modal -->
-                <div class="modal" id="edit-device-modal">
+                <!-- delete device modal -->
+                <div class="modal" id="delete-device-modal">
                     <div class="modal-background"></div>
                     <div class="modal-card">
                       <header class="modal-card-head is-borderless">
-                        <p class="modal-card-title title">Edit Device</p>
+                        <p class="modal-card-title title">Delete Device</p>
                       </header>
                       <section class="modal-card-body">
-                        {% include "includes/edit-device.html" %}
+                        <h3 class="title is-5 has-text-centered">Are you sure you want to delete this device?</h3>
                       </section>
                       <footer class="modal-card-foot is-justify-content-flex-end is-borderless">
-                        <button class="button is-success">Save</button>
+                        <button class="button is-danger">Yes</button>
                         <button class="button">Cancel</button>
                       </footer>
                     </div>
                 </div>
 
-                <!-- add device modal -->
-                <div class="modal" id="add-device-modal">
-                    <div class="modal-background"></div>
-                    <div class="modal-card">
-                      <header class="modal-card-head is-borderless">
-                        <p class="modal-card-title title">Add Device</p>
-                      </header>
-                      <section class="modal-card-body">
-                        {% include "includes/add-device.html" %}
-                      </section>
-                      <footer class="modal-card-foot is-justify-content-flex-end is-borderless">
-                        <button class="button is-success">Save</button>
-                        <button class="button">Cancel</button>
-                      </footer>
-                    </div>
-                </div>
-
-                <button class="button is-info is-pulled-right js-modal-trigger" data-target="add-device-modal">Add Device</button>
+                <a href="{% url 'add_device' %}" class="button is-info is-pulled-right">Add Device</a>
             </div> <!-- end column -->
 
         </div>
 
-        <div class="columns is-centered is-variable is-8 is-offset-2 mt-6">
-            <div class="column">
+        <div class="columns">
+            <div class="column is-variable is-10 is-offset-1 mt-6">
                 <div class="panel is-primary has-background-white">
                     <p class="panel-heading">
                         Component List
@@ -113,7 +104,7 @@
                                         <th>Device Linked</th>
                                         <th>Install Date</th>
                                         <th>Manage By</th>
-                                        <th></th>
+                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -127,10 +118,10 @@
                                             <td class="has-text-centered">
                                                 <span class="icon-text is-flex-wrap-nowrap">
                                                     <span class="icon mr-4">
-                                                        <a href=""><i class="fa fa-trash has-text-danger"></i></a>
+                                                        <i class="fa fa-trash has-text-danger" onclick="confirmDeleteComponent(`{% url 'turbidity_records' compo.component_id %}`)"></i>
                                                     </span>
                                                     <span class="icon is-clickable">
-                                                        <i class="fa fa-pen has-text-primary js-modal-trigger" data-target="edit-component-modal"></i>
+                                                        <a href="{% url 'edit_component' compo.component_id %}"><i class="fa fa-pen has-text-primary"></i></a>
                                                     </span>
                                                 </span>
                                             </td>
@@ -142,40 +133,24 @@
                     </div> <!-- end panel-block -->
                 </div>
 
-                <!-- edit component modal -->
-                <div class="modal" id="edit-component-modal">
+                <!-- delete component modal -->
+                <div class="modal" id="delete-component-modal">
                     <div class="modal-background"></div>
                     <div class="modal-card">
                       <header class="modal-card-head is-borderless">
-                        <p class="modal-card-title title">Edit Component</p>
+                        <p class="modal-card-title title">Delete Component</p>
                       </header>
                       <section class="modal-card-body">
-                        {% include "includes/edit-component.html" %}
+                        <h3 class="title is-5 has-text-centered">Are you sure you want to delete this component?</h3>
                       </section>
                       <footer class="modal-card-foot is-justify-content-flex-end is-borderless">
-                        <button class="button is-success">Save</button>
+                        <button class="button is-danger">Yes</button>
                         <button class="button">Cancel</button>
                       </footer>
                     </div>
                 </div>
 
-                <!-- add component modal -->
-                <div class="modal" id="add-component-modal">
-                    <div class="modal-background"></div>
-                    <div class="modal-card">
-                      <header class="modal-card-head is-borderless">
-                        <p class="modal-card-title title">Add Component</p>
-                      </header>
-                      <section class="modal-card-body">
-                        {% include "includes/add-component.html" with devices=devices %}
-                      </section>
-                      <footer class="modal-card-foot is-justify-content-flex-end is-borderless">
-                        <button class="button is-success">Save</button>
-                        <button class="button">Cancel</button>
-                      </footer>
-                    </div>
-                </div>
-                <button class="button is-info is-pulled-right js-modal-trigger" data-target="add-component-modal">Add Component</button>
+                <a href="{% url 'add_component' %}" class="button is-info is-pulled-right">Add Component</a>
                 
                 
                 {% if messages %}
@@ -191,8 +166,5 @@
         </div>
     </div>
 </section>
-
-<script src="{% static 'core/js/main.js' %}" charset="utf-8"></script>
-
 
 {% endblock %} 

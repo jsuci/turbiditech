@@ -45,7 +45,7 @@
                         <tr>
                             <td>Turbidity Records</td>
                             <td>
-                                <a href="turbidity-records/{{ box_content.detector_id }}" target="_blank">View Records</a>
+                                <a href="{% url 'turbidity_records' box_content.detector_id %}">View Records</a>
                             </td>
                         </tr>
                     </tbody>

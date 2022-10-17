@@ -1,0 +1,90 @@
+{% extends 'header.html' %}
+{% load static %}
+{% load i18n %}
+{% block head_title %} Edit Component | Turbiditech AI {% endblock %}
+
+
+{% block content %}
+
+
+
+<section class="section mt-6 ">
+  <div class="container mt-6">
+
+      {% include "includes/sidebar.html" %}
+
+      <div class="columns">
+        <div class="column is-variable is-8 is-offset-2">
+
+          <nav class="breadcrumb is-medium has-arrow-separator" aria-label="breadcrumbs">
+            <ul>
+              <li><a href="{% url 'dashboard' %}">Home</a></li>
+              <li><a href="{% url 'list_devices' %}">List Devices</a></li>
+              <li class="is-active" ><a href="#" aria-current="page">Edit Component</a></li>
+            </ul>
+          </nav>
+
+          <div class="panel is-primary has-background-white">
+            <p class="panel-heading">
+              Edit Component
+            </p>
+            <div class="panel-block">
+                <div class="content is-full-width">
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+                
+                        <div class="field">
+                            <label class="label">Component Name</label>
+                            <div class="control">
+                              <input class="input" type="text" value="Camera Module">
+                            </div>
+                            <p class="help is-danger">This field is required</p>
+                        </div>
+                
+                        <div class="field">
+                            <label class="label">Device Linked</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select>
+                                        <option></option>
+                                        {% for device in devices %}
+                                            <option>{{ device.device_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                  </div>
+                            </div>
+                            <p class="help is-danger">This field is required</p>
+                        </div>
+                
+                
+                        <div class="field">
+                            <label class="label">Install Date</label>
+                            <div class="control">
+                              <input class="input" type="date" value="2022-10-12">
+                            </div>
+                            <p class="help is-danger">Invalid date selected</p>
+                        </div>
+                
+                
+                        <div class="field">
+                            <label class="label">Manage By</label>
+                            <div class="control">
+                              <input class="input" type="text" value="Jamil Magsuci">
+                            </div>
+                        </div>
+                
+                        <div class="buttons  is-justify-content-flex-end">
+                            <input class="button is-success" type="submit" value="Save">
+                            <a class="button" href="{% url 'list_devices' %}">Cancel</a>
+                          </div>
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</section>
+
+{% endblock %} 

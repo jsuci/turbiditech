@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
+from django.template import loader
+from django.urls import reverse
 
 
 # api
@@ -160,3 +162,20 @@ def list_devices(request):
     }
 
     return render(request, 'list-devices.html', context)
+
+
+def add_device(request):
+  template = loader.get_template('add-device.html')
+  return HttpResponse(template.render({}, request))
+
+def edit_device(request, device_id):
+  template = loader.get_template('edit-device.html')
+  return HttpResponse(template.render({}, request))
+
+def add_component(request):
+  template = loader.get_template('add-component.html')
+  return HttpResponse(template.render({}, request))
+
+def edit_component(request, component_id):
+  template = loader.get_template('edit-component.html')
+  return HttpResponse(template.render({}, request))

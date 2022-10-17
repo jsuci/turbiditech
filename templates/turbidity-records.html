@@ -11,9 +11,16 @@
 
         {% include "includes/sidebar.html" %}
 
-        <div class="columns is-centered is-variable is-8 is-offset-2">
-            
-            <div class="column">
+        <div class="columns">
+            <div class="column column is-variable is-10 is-offset-1">
+
+                <nav class="breadcrumb is-medium has-arrow-separator" aria-label="breadcrumbs">
+                    <ul>
+                      <li><a href="{% url 'dashboard' %}">Home</a></li>
+                      <li class="is-active"><a href="{% url 'list_devices' %}" aria-current="page">View Records</a></li>
+                    </ul>
+                </nav>
+
                 <div class="panel is-primary has-background-white">
                     <p class="panel-heading">
                         {{ device_name }} Records
@@ -52,8 +59,6 @@
         </div> 
     </div>
 </section>
-
-<script src="{% static 'core/js/main.js' %}" charset="utf-8"></script>
 
 
 {% endblock %} 

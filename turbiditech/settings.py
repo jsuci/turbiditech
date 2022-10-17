@@ -158,6 +158,7 @@ STATIC_URL = '/static/'
 
 
 
+
 # Heroku staticfiles
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
