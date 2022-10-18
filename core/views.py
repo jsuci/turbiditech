@@ -27,6 +27,9 @@ def get_users(request):
 
 def user_login(request):
 
+    if request.user.is_authenticated:
+        return redirect('dashboard') 
+
     form = LoginForm()
     
     if request.method == 'POST':
