@@ -1,14 +1,19 @@
 # rest_framework
-from multiprocessing import context
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 # django
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.template import loader
-from django.urls import reverse
+from django.urls import is_valid_path, reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
+# forms
+from .forms import LoginForm, RegisterForm
+
 
 
 # api
@@ -21,25 +26,55 @@ def get_users(request):
     return Response(person)
 
 
-def login(request):
-    context = {
-        'header_title': 'Log In | Turbiditech AI'
-    }
+def user_login(request):
+    
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is not None:
+            login(request, user)
+
+            # Redirect to dashboard
+            return redirect('dashboard') 
+        else:
+            # Return an 'invalid login' error message.
+            messages.add_message(request, messages.INFO, 'Incorrect email or password.')
+
+
+    form = LoginForm()
+    context = {'form': form}
     return render(request, 'login.html', context)
 
 
-def logout(request):
-    return render(request, 'logout.html')
+def user_logout(request):
+    logout(request)
+    return redirect('dashboard')
 
 
 def register(request):
+    form = RegisterForm()
+    
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('user_login')
+
     context = {
-        'header_title': 'Register | Turbiditech AI'
+        'form': form
     }
 
     return render(request, 'register.html', context)
 
 
+@login_required
 def dashboard(request):
     context = {
         'header_title': 'Register | Turbiditech AI',
@@ -90,6 +125,7 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 
+@login_required
 def turbidity_records(request, device_id):
 
     # use device_id to locate in db the specific entry or device
@@ -119,6 +155,7 @@ def turbidity_records(request, device_id):
     return render(request, 'turbidity-records.html', context)
 
 
+@login_required
 def list_devices(request):
     # notification message after successful form submit
     # must be placed inside if form.is_valid()
@@ -164,18 +201,25 @@ def list_devices(request):
     return render(request, 'list-devices.html', context)
 
 
+@login_required
 def add_device(request):
   template = loader.get_template('add-device.html')
   return HttpResponse(template.render({}, request))
 
+
+@login_required
 def edit_device(request, device_id):
   template = loader.get_template('edit-device.html')
   return HttpResponse(template.render({}, request))
 
+
+@login_required
 def add_component(request):
   template = loader.get_template('add-component.html')
   return HttpResponse(template.render({}, request))
 
+
+@login_required
 def edit_component(request, component_id):
   template = loader.get_template('edit-component.html')
   return HttpResponse(template.render({}, request))

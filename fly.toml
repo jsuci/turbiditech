@@ -9,7 +9,7 @@ processes = []
   DJANGO_SETTINGS_MODULE = "turbiditech.settings"
 
 [deploy]
-  release_command = "poetry run python manage.py migrate"
+  release_command = "poetry run python manage.py makemigrations && poetry run python manage.py migrate"
 
 [[statics]]
   guest_path = "/app/static"

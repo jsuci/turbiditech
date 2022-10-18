@@ -10,7 +10,7 @@
     </div>
     <div class="header p-4 is-align-items-center is-flex is-flex-direction-column is-flex-wrap-nowrap">
         <img src="{% static 'core/img/profile.png' %}" class="mt-6" alt="">
-        <h1 class="subtitle is-4 has-text-white mt-4">Jamil Magsuci</h1>
+        <h1 class="subtitle is-4 has-text-white mt-4">{{ request.user }}</h1>
     </div>
     <div class="menu">
         <div class="item"> 
@@ -22,7 +22,7 @@
         </div>
 
         <div class="item">
-            <a href="#"><i class="fas fa-info-circle"></i>Log out </a>
+            <a href="{% url 'user_logout' %}"><i class="fas fa-info-circle"></i>Log out </a>
         </div>
     </div>
-    </div>
+</div>

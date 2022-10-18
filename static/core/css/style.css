@@ -9,7 +9,7 @@ html, body {
 
 /* hamburger icon */
 .menu-btn {
-    position: absolute;
+    position: relative;
     color: rgb(0, 0, 0);
     font-size: 35px;
     cursor: pointer;
