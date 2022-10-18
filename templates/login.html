@@ -32,8 +32,13 @@
               </div>
               {% for error in field.errors %}
                 <p class="help is-danger is-size-6 is-italic">{{ error }}</p>
-                {% endfor %}
+              {% endfor %}
             </div>
+          {% endfor %}
+
+
+          {% for message in messages %}
+          <p class="help is-danger is-size-6 is-italic">{{ message }}</p>
           {% endfor %}
 
   

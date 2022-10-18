@@ -7,7 +7,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.template import loader
-from django.urls import is_valid_path, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
@@ -27,25 +26,25 @@ def get_users(request):
 
 
 def user_login(request):
-    
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-
-        user = authenticate(request, username=email, password=password)
-
-        if user is not None:
-            login(request, user)
-
-            # Redirect to dashboard
-            return redirect('dashboard') 
-        else:
-            # Return an 'invalid login' error message.
-            messages.add_message(request, messages.INFO, 'Incorrect email or password.')
-
 
     form = LoginForm()
-    context = {'form': form}
+    
+    if request.method == 'POST':
+        email       = request.POST['email']
+        password    = request.POST['password']
+        user        = authenticate(request, username=email, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            messages.info(request, 'Invalid username or password')
+            return redirect('user_login')
+    
+    context = {
+        'form': form
+    }
+
     return render(request, 'login.html', context)
 
 

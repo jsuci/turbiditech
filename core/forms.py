@@ -11,10 +11,12 @@ class LoginForm(ModelForm):
     class Meta:
         model   = CustomUser
         fields  = ['email', 'password']
-        widgets = {
-            'email': EmailInput(attrs={'class': 'input'}),
-            'password': PasswordInput(attrs={'class': 'input'})
-        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'class': 'input'})
+        self.fields['password'].widget.attrs.update({'class': 'input'})
+        self.fields['password'].widget.input_type = 'password'
 
 class RegisterForm(UserCreationForm):
 
