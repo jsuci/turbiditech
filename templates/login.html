@@ -17,7 +17,7 @@
         <form class="box box-radius p-6" method="POST" action="{% url 'user_login' %}">
           {% csrf_token %}
   
-          <h1 class="title is-2 has-text-centered has-text-black mb-2">
+          <h1 class="title is-2 has-text-centered has-text-black mb-5">
             Turbiditech AI
           </h1>
           <h2 class="title is-3 has-text-centered has-text-grey mb-6">
@@ -42,7 +42,7 @@
 
           <button class="button is-large is-fullwidth is-link mt-5" type="submit">Log in</button>
 
-          <p class="has-text-centered mt-4"><a href="{% url 'register' %}">Forgot your password?</a></p>
+          <p class="has-text-centered mt-4"><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
           
           <p class="has-text-centered mt-5">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
 

@@ -1,7 +1,7 @@
 # forms
 from django import forms
-from django.forms import ModelForm, EmailInput, PasswordInput, TextInput
-from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
 
 # models
 from .models import CustomUser
@@ -56,3 +56,16 @@ class RegisterForm(UserCreationForm):
         if pw1 and pw2 and pw1 == pw2:
             return pw2
         raise forms.ValidationError("Passwords do not match")
+
+
+class ResetPasswordForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.update({'class': 'input'})
+
+
+class ResetPasswordConfirmForm(SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['new_password1'].widget.attrs.update({'class': 'input'})
+        self.fields['new_password2'].widget.attrs.update({'class': 'input'})

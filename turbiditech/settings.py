@@ -167,6 +167,23 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Custom User for Authentication
+# CustomUser for Authentication
 AUTH_USER_MODEL = 'core.CustomUser'
 LOGIN_URL = "/login/"
+
+
+# Email Settings
+
+# live environment
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# development environment
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST="smtp.gmail.com"
+EMAIL_HOST_USER = os.getenv("EMAIL")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
+EMAIL_PORT=587
+
+PASSWORD_RESET_TIMEOUT = 14400

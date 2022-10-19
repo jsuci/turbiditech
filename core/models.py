@@ -45,8 +45,8 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractBaseUser):
 
     email           = models.EmailField(verbose_name='Email', max_length=60, unique=True)
-    date_joined     = models.DateField(verbose_name='Date Joined', auto_now_add=True)
-    last_login      = models.DateField(verbose_name='Last Login', auto_now=True)
+    date_joined     = models.DateTimeField(verbose_name='Date Joined', auto_now_add=True)
+    last_login      = models.DateTimeField(verbose_name='Last Login', auto_now=True)
     is_active       = models.BooleanField(default=True)
     is_admin        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)

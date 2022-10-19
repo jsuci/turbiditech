@@ -11,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 # forms
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ResetPasswordForm
 
 
 
