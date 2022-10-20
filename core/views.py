@@ -67,7 +67,7 @@ def register(request):
 
         if form.is_valid():
             form.save()
-            return redirect('user_login')
+            return redirect('register_complete')
 
     context = {
         'form': form
@@ -75,6 +75,9 @@ def register(request):
 
     return render(request, 'register.html', context)
 
+
+def register_complete(request):
+    return render(request, 'register-complete.html', {})
 
 @login_required
 def dashboard(request):
