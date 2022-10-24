@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
 
 # models
-from .models import CustomUser
+from .models import CustomUser, Device, Component
 
 
 class LoginForm(ModelForm):
@@ -17,6 +17,7 @@ class LoginForm(ModelForm):
         self.fields['email'].widget.attrs.update({'class': 'input'})
         self.fields['password'].widget.attrs.update({'class': 'input'})
         self.fields['password'].widget.input_type = 'password'
+
 
 class RegisterForm(UserCreationForm):
 
@@ -69,3 +70,44 @@ class ResetPasswordConfirmForm(SetPasswordForm):
         super().__init__(*args, **kwargs)
         self.fields['new_password1'].widget.attrs.update({'class': 'input'})
         self.fields['new_password2'].widget.attrs.update({'class': 'input'})
+
+
+class AddDeviceForm(ModelForm):
+    class Meta:
+        model       = Device
+        fields      = ['device_name', 'location', 'install_date', 'managed_by']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['device_name'].widget.attrs.update({'class': 'input'})
+        self.fields['location'].widget.attrs.update({'class': 'input'})
+        self.fields['install_date'].widget.attrs.update({'class': 'input'})
+        self.fields['install_date'].widget.input_type = 'date'
+        self.fields['managed_by'].widget.attrs.update({'class': 'input'})
+
+
+class AddComponentForm(ModelForm):
+    class Meta:
+        model       = Component
+        fields      = ['component_name', 'device_link', 'install_date', 'installed_by']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['component_name'].widget.attrs.update({'class': 'input'})
+        self.fields['install_date'].widget.attrs.update({'class': 'input'})
+        self.fields['install_date'].widget.input_type = 'date'
+        self.fields['installed_by'].widget.attrs.update({'class': 'input'})
+
+
+class EditDeviceForm(ModelForm):
+    class Meta:
+        model       = Device
+        fields      = ['device_name', 'location', 'install_date', 'managed_by']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['device_name'].widget.attrs.update({'class': 'input'})
+        self.fields['location'].widget.attrs.update({'class': 'input'})
+        self.fields['install_date'].widget.attrs.update({'class': 'input'})
+        self.fields['install_date'].widget.input_type = 'date'
+        self.fields['managed_by'].widget.attrs.update({'class': 'input'})

@@ -31,52 +31,26 @@
             </p>
             <div class="panel-block">
                 <div class="content is-full-width">
-                    <form method="POST" action="{% url 'login' %}">
+                    <form method="POST">
                         {% csrf_token %}
                 
+                        {% for field in form %}
                         <div class="field">
-                            <label class="label">Device Name</label>
-                            <div class="control">
-                              <input class="input" type="text" value="Detector 1">
+                          <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                          {% if field.label == "Managed By" %}
+                            <div class="control select is-fullwidth">
+                              {{ field }}
                             </div>
-                        </div>
-                
-                
-                        <div class="field">
-                            <label class="label">Status</label>
+                          {% else %}
                             <div class="control">
-                              <div class="select is-fullwidth">
-                                <select >
-                                  <option>online</option>
-                                  <option>offline</option>
-                                </select>
-                              </div>
+                              {{ field }}
                             </div>
+                          {% endif %}
+                          {% for error in field.errors %}
+                            <p class="help is-danger is-size-6 is-italic">{{ error }}</p>
+                          {% endfor %}
                         </div>
-                
-                        
-                        <div class="field">
-                            <label class="label">Location</label>
-                            <div class="control">
-                              <input class="input" type="text" value="Sample Location">
-                            </div>
-                        </div>
-                
-                
-                        <div class="field">
-                            <label class="label">Install Date</label>
-                            <div class="control">
-                              <input class="input" type="date" value="2022-10-13">
-                            </div>
-                        </div>
-                
-                
-                        <div class="field">
-                            <label class="label">Manage By</label>
-                            <div class="control">
-                              <input class="input" type="text" value="Jamil Magsuci">
-                            </div>
-                        </div>
+                      {% endfor %}
                 
                         <div class="buttons  is-justify-content-flex-end">
                           <input class="button is-success" type="submit" value="Save">

@@ -188,7 +188,6 @@ div.box td:nth-child(2) {
 }
 
 
-
 /* other helpers */
 .is-borderless {
     border: 0;
@@ -197,4 +196,11 @@ div.box td:nth-child(2) {
 .is-full-width {
     width: 100%;
     max-width: 100%;
+}
+
+.box-blank {
+    height: 340px;
+    border: 6px solid #a9a9a9;
+    border-radius: 30px;
+    background: none;
 }
