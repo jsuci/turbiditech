@@ -12,6 +12,8 @@
         {% include "includes/sidebar.html" %}
 
         <div class="columns is-centered is-variable is-8 is-multiline">
+            {% include "includes/box-add.html" %}
+            
             {% for entry in box_contents %}
                 {% include "includes/box.html" with box_content=entry %}
             {% endfor %}
