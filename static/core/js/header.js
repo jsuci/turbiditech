@@ -27,7 +27,7 @@ function confirmDeleteComponent(deleteComponentLink) {
     const deleteModal = document.getElementById('delete-component-modal');
     deleteModal.classList.add('is-active');
 
-    $("#delete-device-modal .is-danger").replaceWith('<button class="button is-danger" onclick="deleteComponent(`' + deleteComponentLink + '`)">Yes</button>');
+    $("#delete-component-modal .is-danger").replaceWith('<button class="button is-danger" onclick="deleteComponent(`' + deleteComponentLink + '`)">Yes</button>');
 
 }
 

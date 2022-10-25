@@ -10,10 +10,10 @@ from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from core.models import Device
+from core.models import Device, Component
 
 # forms
-from .forms import LoginForm, RegisterForm, AddDeviceForm, AddComponentForm, EditDeviceForm
+from . import forms
 
 
 
@@ -32,7 +32,7 @@ def user_login(request):
     if request.user.is_authenticated:
         return redirect('dashboard') 
 
-    form = LoginForm()
+    form = forms.LoginForm()
     
     if request.method == 'POST':
         email       = request.POST['email']
@@ -59,13 +59,13 @@ def user_logout(request):
 
 
 def register(request):
-    form = RegisterForm()
+    form = forms.RegisterForm()
     
     if request.user.is_authenticated:
         return redirect('dashboard')
 
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = forms.RegisterForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -211,10 +211,10 @@ def list_devices(request):
 @login_required
 def add_device(request):
 
-    form = AddDeviceForm()
+    form = forms.AddDeviceForm()
     
     if request.method == 'POST':
-        form = AddDeviceForm(request.POST)
+        form = forms.AddDeviceForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -232,13 +232,13 @@ def edit_device(request, device_id):
     selected_device = Device.objects.get(id=device_id)
 
     if request.method == 'POST':
-        form = EditDeviceForm(request.POST, instance=selected_device)
+        form = forms.AddDeviceForm(request.POST, instance=selected_device)
 
         if form.is_valid():
             form.save()
             return redirect('list_devices')
 
-    form = EditDeviceForm(instance=selected_device)
+    form = forms.AddDeviceForm(instance=selected_device)
 
     context = {
         'form': form
@@ -249,10 +249,10 @@ def edit_device(request, device_id):
 
 @login_required
 def add_component(request):
-    form = AddComponentForm()
+    form = forms.AddComponentForm()
     
     if request.method == 'POST':
-        form = AddComponentForm(request.POST)
+        form = forms.AddComponentForm(request.POST)
 
         if form.is_valid():
             form.save()
@@ -267,5 +267,35 @@ def add_component(request):
 
 @login_required
 def edit_component(request, component_id):
-  template = loader.get_template('edit-component.html')
-  return HttpResponse(template.render({}, request))
+    selected_component = Component.objects.get(id=component_id)
+
+    if request.method == 'POST':
+        form = forms.AddComponentForm(request.POST, instance=selected_component)
+
+        if form.is_valid():
+            form.save()
+            return redirect('list_devices')
+
+    form = forms.AddComponentForm(instance=selected_component)
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'edit-component.html', context)
+
+
+@login_required
+def delete_device(request, device_id):
+    selected_device = Device.objects.get(id=device_id)
+    selected_device.delete()
+    
+    return redirect('list_devices')
+
+
+@login_required
+def delete_component(request, component_id):
+    selected_component = Component.objects.get(id=component_id)
+    selected_component.delete()
+    
+    return redirect('list_devices')

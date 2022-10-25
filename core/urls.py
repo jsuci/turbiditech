@@ -39,7 +39,9 @@ urlpatterns = [
     path('turbidity-records/<int:device_id>', views.turbidity_records, name='turbidity_records'),
     path('list-devices/', views.list_devices, name='list_devices'),
     path('add-device/', views.add_device, name='add_device'),
-    path('edit-device/<int:device_id>', views.edit_device, name='edit_device'),
     path('add-component/', views.add_component, name='add_component'),
+    path('edit-device/<int:device_id>', views.edit_device, name='edit_device'),
     path('edit-component/<int:component_id>', views.edit_component, name='edit_component'),
+    path('delete-device/<int:device_id>', views.delete_device, name='delete_device'),
+    path('delete-component/<int:component_id>', views.delete_component, name='delete_component'),
 ]

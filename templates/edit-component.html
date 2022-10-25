@@ -30,48 +30,26 @@
             </p>
             <div class="panel-block">
                 <div class="content is-full-width">
-                    <form method="POST" action="{% url 'login' %}">
+                    <form method="POST">
                         {% csrf_token %}
                 
-                        <div class="field">
-                            <label class="label">Component Name</label>
-                            <div class="control">
-                              <input class="input" type="text" value="Camera Module">
-                            </div>
-                            <p class="help is-danger">This field is required</p>
-                        </div>
-                
-                        <div class="field">
-                            <label class="label">Device Linked</label>
-                            <div class="control">
-                                <div class="select is-fullwidth">
-                                    <select>
-                                        <option></option>
-                                        {% for device in devices %}
-                                            <option>{{ device.device_name }}</option>
-                                        {% endfor %}
-                                    </select>
-                                  </div>
-                            </div>
-                            <p class="help is-danger">This field is required</p>
-                        </div>
-                
-                
-                        <div class="field">
-                            <label class="label">Install Date</label>
-                            <div class="control">
-                              <input class="input" type="date" value="2022-10-12">
-                            </div>
-                            <p class="help is-danger">Invalid date selected</p>
-                        </div>
-                
-                
-                        <div class="field">
-                            <label class="label">Installed By</label>
-                            <div class="control">
-                              <input class="input" type="text" value="Jamil Magsuci">
-                            </div>
-                        </div>
+                        {% for field in form %}
+                          <div class="field">
+                            <label class="label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {% if field.label == "Device Link" %}
+                              <div class="control select is-fullwidth">
+                                {{ field }}
+                              </div>
+                            {% else %}
+                              <div class="control">
+                                {{ field }}
+                              </div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                              <p class="help is-danger is-size-6 is-italic">{{ error }}</p>
+                            {% endfor %}
+                          </div>
+                        {% endfor %}
                 
                         <div class="buttons  is-justify-content-flex-end">
                             <input class="button is-success" type="submit" value="Save">
