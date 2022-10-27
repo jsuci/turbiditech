@@ -1,40 +1,33 @@
 
     <div class="column is-5 mb-6">
             <div class="box">
-                <h5 class="title is-5 has-text-centered">{{ box_content.detector_name }}</h5>
+                <h5 class="title is-5 has-text-centered">{{ box_content.device_name }}</h5>
                 <table class="table is-striped is-fullwidth is-hoverable">
                     <tbody>
                         <tr>
                             <td>Water Quality</td>
-                            {% if box_content.turbidity == "dirty" %}
+                            {% if box_content.turbidityrecord__water_status == "dirty" %}
                             <td class="has-text-right has-background-danger">
-                                    <span class="has-text-white">{{ box_content.turbidity }}</span>                        
+                                    <span class="has-text-white">dirty</span>                        
                             </td>
+                            {% elif box_content.turbidityrecord__water_status == null %}
+                            <td>No records yet.</td>
                             {% else %}
                             <td class="has-text-right">
-                                <span class="has-text-primary-dark">{{ box_content.turbidity }}</span>                        
+                                <span class="has-text-primary-dark">{{ box_content.turbidityrecord__water_status }}</span>                        
                             </td>
                             {% endif %}
-
-                        </tr>
-                        <tr>
-                            <td>Device Status</td>
-                            <td>
-                                {% if box_content.device_status == "offline" %}
-                                    <span class="has-text-danger">{{ box_content.device_status }}</span>
-                                {% else %}
-                                    <span class="has-text-primary-dark">{{ box_content.device_status }}</span>
-                                {% endif %}
-                            </td>
                         </tr>
                         <tr>
 
-                            <td>Valve Control</td>
+                            <td>Valve Status</td>
                             <td>
-                                {% if box_content.valve_status == "off" %}
-                                    <input class="toggle" id="{{ box_content.detector_id}}" type="checkbox"/>
+                                {% if box_content.turbidityrecord__valve_status == "off" %}
+                                    <input class="toggle" id="{{ box_content.id}}" type="checkbox"/>
+                                {% elif box_content.turbidityrecord__valve_status == None %}
+                                    No records yet.
                                 {% else %}
-                                    <input class="toggle" id="{{ box_content.detector_id}}" type="checkbox" checked/>
+                                    <input class="toggle" id="{{ box_content.id}}" type="checkbox" checked/>
                                 {% endif %}
                             </td>
                         </tr>
@@ -45,7 +38,7 @@
                         <tr>
                             <td>Turbidity Records</td>
                             <td>
-                                <a href="{% url 'turbidity_records' box_content.detector_id %}">View Records</a>
+                                <a href="{% url 'turbidity_records' box_content.id %}">View Records</a>
                             </td>
                         </tr>
                     </tbody>

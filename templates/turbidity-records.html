@@ -23,7 +23,7 @@
 
                 <div class="panel is-primary has-background-white">
                     <p class="panel-heading">
-                        {{ device_name }} Records
+                        {{ records.0.device_name }} Records
                     </p>
                     <div class="panel-block">
                         <div class="table-container is-full-width">
@@ -39,20 +39,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for record in records%}
-                                        <tr>
-                                            <td>{{ record.capture_id }}</td>
-                                            <td>{{ record.capture_date }}</td>
-                                            <td>{{ record.capture_time }}</td>
-                                            <td><a href="{{ record.image_link }}" target="_blank">{{ record.image_link }}</a></td>
-                                            <td>{{ record.valve_status }}</td>
-                                            <td>{{ record.turbidity_status }}</td>
-                                        </tr>
+                                    {% for record in records %}
+                                        {% if record.turbidityrecord__id != null %}
+                                            <tr>
+                                                <td>{{ record.turbidityrecord__id }}</td>
+                                                <td>{{ record.turbidityrecord__record_date }}</td>
+                                                <td>{{ record.turbidityrecord__record_time }}</td>
+                                                <td><a href="{{ record.turbidityrecord__record_image }}" target="_blank">{{ record.turbidityrecord__record_image }}</a></td>
+                                                <td>{{ record.turbidityrecord__valve_status }}</td>
+                                                <td>{{ record.turbidityrecord__water_status }}</td>
+                                            </tr>
+                                        {% endif %}
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     </div> <!-- end panel-block -->
+                
                 </div>
             </div> <!-- end column -->
 

@@ -32,7 +32,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Status</th>
                                         <th>Location</th>
                                         <th>Install Date</th>
                                         <th>Manage By</th>
@@ -42,19 +41,18 @@
                                 <tbody>
                                     {% for device in devices%}
                                         <tr>
-                                            <td>{{ device.device_id }}</td>
+                                            <td>{{ device.id }}</td>
                                             <td>{{ device.device_name }}</td>
-                                            <td>{{ device.device_status }}</td>
-                                            <td>{{ device.device_location }}</td>
+                                            <td>{{ device.location }}</td>
                                             <td>{{ device.install_date }}</td>
                                             <td>{{ device.managed_by }}</td>
                                             <td class="has-text-centered">
                                                 <span class="icon-text is-flex-wrap-nowrap">
                                                     <span class="icon mr-4 is-clickable">
-                                                      <i class="fa fa-trash has-text-danger" onclick="confirmDeleteDevice(`{% url 'delete_device' device.device_id %}`)"></i>
+                                                      <i class="fa fa-trash has-text-danger" onclick="confirmDeleteDevice(`{% url 'delete_device' device.id %}`)"></i>
                                                     </span>
                                                     <span class="icon is-clickable">
-                                                        <a href="{% url 'edit_device' device.device_id %}"><i class="fa fa-pen has-text-primary"></i></a>
+                                                        <a href="{% url 'edit_device' device.id %}"><i class="fa fa-pen has-text-primary"></i></a>
                                                     </span>
                                                 </span>
                                             </td>
@@ -110,18 +108,18 @@
                                 <tbody>
                                     {% for compo in components%}
                                         <tr>
-                                            <td>{{ compo.component_id }}</td>
+                                            <td>{{ compo.id }}</td>
                                             <td>{{ compo.component_name }}</td>
-                                            <td>{{ compo.device_linked }}</td>
+                                            <td>{{ compo.device_link }}</td>
                                             <td>{{ compo.install_date }}</td>
-                                            <td>{{ compo.managed_by }}</td>
+                                            <td>{{ compo.installed_by }}</td>
                                             <td class="has-text-centered">
                                                 <span class="icon-text is-flex-wrap-nowrap">
                                                     <span class="icon mr-4">
                                                         <i class="fa fa-trash has-text-danger" onclick="confirmDeleteComponent(`{% url 'delete_component' 2 %}`)"></i>
                                                     </span>
                                                     <span class="icon is-clickable">
-                                                        <a href="{% url 'edit_component' compo.component_id %}"><i class="fa fa-pen has-text-primary"></i></a>
+                                                        <a href="{% url 'edit_component' compo.id %}"><i class="fa fa-pen has-text-primary"></i></a>
                                                     </span>
                                                 </span>
                                             </td>

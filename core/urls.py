@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
 from . import forms
@@ -44,4 +44,7 @@ urlpatterns = [
     path('edit-component/<int:component_id>', views.edit_component, name='edit_component'),
     path('delete-device/<int:device_id>', views.delete_device, name='delete_device'),
     path('delete-component/<int:component_id>', views.delete_component, name='delete_component'),
+
+    # debugging
+    
 ]

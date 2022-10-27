@@ -86,14 +86,16 @@ class Device(models.Model):
     device_name     = models.CharField(verbose_name='Device Name', max_length=120, unique=True)
     location        = models.CharField(verbose_name='Location', max_length=120)
     install_date    = models.DateField(verbose_name='Install Date')
-    device_status   = models.CharField(verbose_name='Device Status', max_length=7, choices=DeviceStatus.choices, default=DeviceStatus.ONLINE)
     managed_by      = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Managed By")
+    created_on      = models.DateTimeField(auto_now_add=True)
+
 
     def __str__(self):
         return self.device_name
 
     class Meta:
         verbose_name = 'device'
+        get_latest_by = "created_on"
 
 
 class Component(models.Model):
@@ -101,6 +103,7 @@ class Component(models.Model):
     device_link         = models.ForeignKey(Device, on_delete=models.CASCADE, verbose_name="Device Link")
     install_date        = models.DateField(verbose_name='Install Date')
     installed_by        = models.CharField(verbose_name='Installed By', max_length=120)
+    created_on          = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.device_link}__{self.component_name}"
@@ -123,11 +126,13 @@ class TurbidityRecord(models.Model):
     record_date         = models.DateField(verbose_name='Record Date', auto_now_add=True)
     record_time         = models.TimeField(auto_now=False, auto_now_add=True, verbose_name='Record Time')
     record_image        = models.CharField(verbose_name='Record Image', max_length=120, unique=True)
-    valve_status        = models.CharField(verbose_name='Vavle Status', max_length=3, choices=VavleControl.choices)
-    water_status        = models.CharField(verbose_name='Water Status', max_length=5, choices=WaterStatus.choices)
+    valve_status        = models.CharField(verbose_name='Vavle Status', max_length=3, choices=VavleControl.choices, default=VavleControl.OFF)
+    water_status        = models.CharField(verbose_name='Water Status', max_length=5, choices=WaterStatus.choices, default=WaterStatus.DIRTY)
+    created_on          = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.record_device}__{self.record_date}__{self.record_time}__{self.water_status}"
 
     class Meta:
         verbose_name = 'Turbidity Record'
+        get_latest_by = "created_on"
