@@ -35,7 +35,8 @@
                                         <th>Time</th>
                                         <th>Image Link</th>
                                         <th>Valve Status</th>
-                                        <th>Turbidity Status</th>
+                                        <th>Water Status</th>
+                                        <th>Details</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,6 +49,7 @@
                                                 <td><a href="{{ record.turbidityrecord__record_image }}" target="_blank">{{ record.turbidityrecord__record_image }}</a></td>
                                                 <td>{{ record.turbidityrecord__valve_status }}</td>
                                                 <td>{{ record.turbidityrecord__water_status }}</td>
+                                                <td>{{ record.turbidityrecord__details }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}

@@ -18,23 +18,6 @@ $(document).ready(function() {
     });
 
 
-    // vavle control
-    $('input[type=checkbox]').change(function() {
-            
-        if (this.checked == true) {
-            console.log('valve_status set to `on`', 'device: ', this.id)
-            console.log('turbidity set to `clean`', 'device: ', this.id)
-        } else {
-            console.log('valve_status set to `off`', 'device: ', this.id)
-            console.log('turbidity set to `dirty`', 'device: ', this.id)
-        }
-        // $.post(`/update-device/${this.id}`, {
-        //     id: '{{workexperiance.id}}', 
-        //     isworking: this.checked, 
-        //     csrfmiddlewaretoken: '{{ csrf_token }}' 
-        // });
-    });
-
     // close button modals
     (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
         const $target = $close.closest('.modal');
@@ -43,6 +26,32 @@ $(document).ready(function() {
           $target.classList.remove('is-active');
         });
       });
+
+
+    // display water status everytime page reload
+
+    const allWaterStat = document.querySelectorAll('.water-stat');
+    const recordsUrl = 'http://127.0.0.1:8000/api/turbidity-records/'
+    
+    for (const eachWaterStat of allWaterStat) {
+        device_id = eachWaterStat.getAttribute('data-id');
+        
+        fetch(`${recordsUrl}${device_id}`, {
+            method: 'GET',
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            const latestRecord = data[data.length-1]
+
+            if (latestRecord != undefined) {
+
+                console.log(latestRecord);
+
+            } else {
+                console.log('No records yet.');
+            }
+        });
+    }
 
 });
 

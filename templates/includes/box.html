@@ -6,29 +6,16 @@
                     <tbody>
                         <tr>
                             <td>Water Quality</td>
-                            {% if box_content.turbidityrecord__water_status == "dirty" %}
-                            <td class="has-text-right has-background-danger">
-                                    <span class="has-text-white">dirty</span>                        
+                            <!-- <td class="has-text-right has-background-danger has-text-white"></td> -->
+                            <td>
+                                <span class="water-stat" data-id="{{ box_content.id }}">No records yet.</span>                     
                             </td>
-                            {% elif box_content.turbidityrecord__water_status == null %}
-                            <td>No records yet.</td>
-                            {% else %}
-                            <td class="has-text-right">
-                                <span class="has-text-primary-dark">{{ box_content.turbidityrecord__water_status }}</span>                        
-                            </td>
-                            {% endif %}
                         </tr>
                         <tr>
 
                             <td>Valve Status</td>
                             <td>
-                                {% if box_content.turbidityrecord__valve_status == "off" %}
-                                    <input class="toggle" id="{{ box_content.id}}" type="checkbox"/>
-                                {% elif box_content.turbidityrecord__valve_status == None %}
-                                    No records yet.
-                                {% else %}
-                                    <input class="toggle" id="{{ box_content.id}}" type="checkbox" checked/>
-                                {% endif %}
+                                <input class="toggle" id="{{ box_content.id }}" type="checkbox" checked/>
                             </td>
                         </tr>
                         <tr>

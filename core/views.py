@@ -1,10 +1,9 @@
 # rest_framework
-from django.http import HttpResponse, JsonResponse
-
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+
 
 # django
 from django.shortcuts import render, redirect
@@ -24,6 +23,7 @@ from core.serializers import TurbidityRecordSerializer
 
 # api
 @api_view(['GET', 'PUT'])
+@csrf_exempt
 def api_turbidity_records(request, device_id):
     try:
         device_records = TurbidityRecord.objects.filter(record_device=device_id)
@@ -118,7 +118,8 @@ def turbidity_records(request, device_id):
     device_record = Device.objects.filter(id=device_id).values(
         'id', 'device_name', 'turbidityrecord__id', 'turbidityrecord__record_date',
         'turbidityrecord__record_time', 'turbidityrecord__record_image',
-        'turbidityrecord__valve_status', 'turbidityrecord__water_status')
+        'turbidityrecord__valve_status', 'turbidityrecord__water_status',
+        'turbidityrecord__details')
 
 
     context = {
