@@ -162,10 +162,10 @@ STATIC_URL = '/static/'
 # use for deployment
 if not DEBUG:
     STATIC_ROOT = 'static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
-]
+else:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static/'),
+    ]
 
 
 
@@ -201,7 +201,7 @@ PASSWORD_RESET_TIMEOUT = 14400
 
 
 # DEBUGGING
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+# INTERNAL_IPS = [
+#     "127.0.0.1",
+# ]
 

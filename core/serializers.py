@@ -1,16 +1,8 @@
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from core.models import TurbidityRecord
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class TurbidityRecordSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
-
-
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Group
-        fields = ['url', 'name']
-
-
+        model = TurbidityRecord
+        fields = "__all__"

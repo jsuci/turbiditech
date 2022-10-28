@@ -1,28 +1,46 @@
 # rest_framework
+from django.http import HttpResponse, JsonResponse
+
+from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 
 # django
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
 from core.models import Device, Component, TurbidityRecord
+from django.views.decorators.csrf import csrf_exempt
 
 # forms
 from . import forms
 
+# serializers
+from core.serializers import TurbidityRecordSerializer
+
 
 
 # api
-@api_view(['GET'])
-def get_users(request):
-    person = {
-        'name': 'Sam',
-        'age': 33
-    }
-    return Response(person)
+@api_view(['GET', 'PUT'])
+def api_turbidity_records(request, device_id):
+    try:
+        device_records = TurbidityRecord.objects.filter(record_device=device_id)
+    except TurbidityRecord.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = TurbidityRecordSerializer(device_records, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = TurbidityRecordSerializer(data=request.data)
+  
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def user_login(request):

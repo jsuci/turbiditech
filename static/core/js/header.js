@@ -38,5 +38,6 @@ function deleteComponent(deleteComponentLink) {
     fetch(fullDeleteURL).then((response) => {
         console.log(response);
         deleteModal.classList.remove('is-active');
+        location.reload();
     })
 }

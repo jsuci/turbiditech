@@ -116,7 +116,7 @@
                                             <td class="has-text-centered">
                                                 <span class="icon-text is-flex-wrap-nowrap">
                                                     <span class="icon mr-4">
-                                                        <i class="fa fa-trash has-text-danger" onclick="confirmDeleteComponent(`{% url 'delete_component' 2 %}`)"></i>
+                                                        <i class="fa fa-trash has-text-danger" onclick="confirmDeleteComponent(`{% url 'delete_component' compo.id %}`)"></i>
                                                     </span>
                                                     <span class="icon is-clickable">
                                                         <a href="{% url 'edit_component' compo.id %}"><i class="fa fa-pen has-text-primary"></i></a>
