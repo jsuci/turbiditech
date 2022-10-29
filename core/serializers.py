@@ -12,6 +12,7 @@ class DeviceRecordSerializer(serializers.ModelSerializer):
 
 class RecordSerializer(serializers.ModelSerializer):
     records = DeviceRecordSerializer(many=True)
+
     class Meta:
         model = Device
         fields = [

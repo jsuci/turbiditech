@@ -10,13 +10,6 @@
     <div class="container">
         {% include "includes/sidebar.html" %}
         <div class="columns is-centered is-variable is-8 is-multiline" id="box-container">
-            {% if detectors %}
-                {% for detector in detectors %}
-                    {% include "includes/box.html" with detector=detector %}
-                {% endfor %}
-            {% else %}
-                <div class="column is-5 mb-6"><a href="{% url 'add_device' %}" class="href"><div class="box box-blank"><div class="content vh-center"><i class="fa fa-plus fa-6x has-text-grey"></i><h2 class="title is-2 has-text-grey">Add Device</h2></div></div></a></div>
-            {% endif %}
         </div> <!-- end columns -->
     </div>
 </section>
