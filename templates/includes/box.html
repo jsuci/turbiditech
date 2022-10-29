@@ -1,34 +1,34 @@
 
-    <div class="column is-5 mb-6">
-            <div class="box">
-                <h5 class="title is-5 has-text-centered">{{ box_content.device_name }}</h5>
-                <table class="table is-striped is-fullwidth is-hoverable">
-                    <tbody>
-                        <tr>
-                            <td>Water Quality</td>
-                            <!-- <td class="has-text-right has-background-danger has-text-white"></td> -->
-                            <td>
-                                <span class="water-stat" data-id="{{ box_content.id }}">No records yet.</span>                     
-                            </td>
-                        </tr>
-                        <tr>
+        <div class="column is-5 mb-6">
+                <div class="box" data-id="{{ detector.id }}">
+                    <h5 class="title is-5 has-text-centered">{{ detector.device_name }}</h5>
+                    <table class="table is-striped is-fullwidth is-hoverable">
+                        <tbody>
+                            <tr>
+                                <td>Water Quality</td>
+                                <!-- <td class="has-text-right has-background-danger has-text-white"></td> -->
+                                <td>
+                                    <span id="water-stat-{{ detector.id }}">No records yet.</span>                     
+                                </td>
+                            </tr>
+                            <tr>
 
-                            <td>Valve Status</td>
-                            <td>
-                                <input class="toggle" id="{{ box_content.id }}" type="checkbox" checked/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Location</td>
-                            <td><span>{{ box_content.location }}</span></td>
-                        </tr>
-                        <tr>
-                            <td>Turbidity Records</td>
-                            <td>
-                                <a href="{% url 'turbidity_records' box_content.id %}">View Records</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-    </div>
+                                <td>Valve Status</td>
+                                <td>
+                                    <input class="toggle" id="valve-stat-{{ detector.id }}" type="checkbox" checked/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Location</td>
+                                <td><span>{{ detector.location }}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Turbidity Records</td>
+                                <td>
+                                    <a href="{% url 'turbidity_records' detector.id %}">View Records</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>

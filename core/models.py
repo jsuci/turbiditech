@@ -122,7 +122,7 @@ class TurbidityRecord(models.Model):
         CLEAN = 'clean', 'clean'
         DIRTY = 'dirty', 'dirty'
 
-    record_device       = models.ForeignKey(Device, on_delete=models.CASCADE, verbose_name="Record Device")
+    record_device       = models.ForeignKey(Device, on_delete=models.CASCADE, verbose_name="Record Device", related_name='record_device')
     record_date         = models.DateField(verbose_name='Record Date', auto_now_add=True)
     record_time         = models.TimeField(auto_now=False, auto_now_add=True, verbose_name='Record Time')
     record_image        = models.CharField(verbose_name='Record Image', unique=True, blank=True, max_length=200)

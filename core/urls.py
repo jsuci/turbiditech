@@ -6,7 +6,9 @@ from . import forms
 urlpatterns = [
 
     # api
-    path('api/turbidity-records/<int:device_id>', views.api_turbidity_records, name='api_turbidity_records'),
+    path('api/turbidity-records/<int:device_id>', views.api_device_record),
+    path('api/turbidity-records/', views.api_records),
+
 
 
     # authentication
@@ -14,7 +16,6 @@ urlpatterns = [
     path('logout/', views.user_logout, name='user_logout'),
     path('register/', views.register, name='register'),
     path('register-complete/', views.register_complete, name='register_complete'),
-
     path('', views.dashboard, name='dashboard'),
 
 
@@ -45,6 +46,5 @@ urlpatterns = [
     path('delete-device/<int:device_id>', views.delete_device, name='delete_device'),
     path('delete-component/<int:component_id>', views.delete_component, name='delete_component'),
 
-    # debugging
     
 ]

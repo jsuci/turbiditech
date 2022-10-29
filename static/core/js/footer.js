@@ -27,32 +27,6 @@ $(document).ready(function() {
         });
       });
 
-
-    // display water status everytime page reload
-
-    const allWaterStat = document.querySelectorAll('.water-stat');
-    const recordsUrl = 'http://127.0.0.1:8000/api/turbidity-records/'
-    
-    for (const eachWaterStat of allWaterStat) {
-        device_id = eachWaterStat.getAttribute('data-id');
-        
-        fetch(`${recordsUrl}${device_id}`, {
-            method: 'GET',
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            const latestRecord = data[data.length-1]
-
-            if (latestRecord != undefined) {
-
-                console.log(latestRecord);
-
-            } else {
-                console.log('No records yet.');
-            }
-        });
-    }
-
 });
 
 

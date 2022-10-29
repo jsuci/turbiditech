@@ -1,32 +1,32 @@
 {% load static %}
 
-<div class="menu-btn">
-    <i class="fas fa-bars"></i>
-</div>
-
-<div class="side-bar">
-    <div class="close-btn">
-        <i class="fas fa-times"></i>
-    </div>
-    <div class="header p-4 is-align-items-center is-flex is-flex-direction-column is-flex-wrap-nowrap">
-        <img src="{% static 'core/img/profile.png' %}" class="mt-6" alt="">
-        <h1 class="subtitle is-4 has-text-white mt-4">{{ request.user }}</h1>
-    </div>
-    <div class="menu">
-        <div class="item"> 
-            <a href="{% url 'dashboard' %}"><i class="fas fa-desktop"></i>Dashboard </a>
+        <div class="menu-btn">
+            <i class="fas fa-bars"></i>
         </div>
 
-        <div class="item">
-            <a href="{% url 'list_devices' %}"><i class="fas fa-th"></i>List Devices </a>
-        </div>
+        <div class="side-bar">
+            <div class="close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="header p-4 is-align-items-center is-flex is-flex-direction-column is-flex-wrap-nowrap">
+                <img src="{% static 'core/img/profile.png' %}" class="mt-6" alt="">
+                <h1 class="subtitle is-4 has-text-white mt-4">{{ request.user }}</h1>
+            </div>
+            <div class="menu">
+                <div class="item"> 
+                    <a href="{% url 'dashboard' %}"><i class="fas fa-desktop"></i>Dashboard </a>
+                </div>
 
-        <div class="item">
-            <a href="{% url 'add_device' %}"><i class="fas fa-plus"></i>Add Device </a>
-        </div>
+                <div class="item">
+                    <a href="{% url 'list_devices' %}"><i class="fas fa-th"></i>List Devices </a>
+                </div>
 
-        <div class="item">
-            <a href="{% url 'user_logout' %}"><i class="fas fa-info-circle"></i>Log out </a>
+                <div class="item">
+                    <a href="{% url 'add_device' %}"><i class="fas fa-plus"></i>Add Device </a>
+                </div>
+
+                <div class="item">
+                    <a href="{% url 'user_logout' %}"><i class="fas fa-info-circle"></i>Log out </a>
+                </div>
+            </div>
         </div>
-    </div>
-</div>

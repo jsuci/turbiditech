@@ -1,16 +1,19 @@
 from rest_framework import serializers
-from core.models import TurbidityRecord
+from core.models import Device, TurbidityRecord
 
-
-class TurbidityRecordSerializer(serializers.ModelSerializer):
-    device_name = serializers.ReadOnlyField(source='record_device.device_name')
-    device_id = serializers.ReadOnlyField(source='record_device.id')
-    location = serializers.ReadOnlyField(source='record_device.location')
-    
+class DeviceRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = TurbidityRecord
         fields = [
-            'device_name', 'device_id', 'location',
             'valve_status', 'water_status', 'record_image',
-            'record_device', 'details'
+            'record_device', 'details', 'created_on'
+        ]
+
+
+class RecordSerializer(serializers.ModelSerializer):
+    record_device = DeviceRecordSerializer(many=True)
+    class Meta:
+        model = Device
+        fields = [
+            'id', 'device_name', 'location', 'record_device'
         ]

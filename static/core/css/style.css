@@ -199,8 +199,12 @@ div.box td:nth-child(2) {
 }
 
 .box-blank {
-    height: 295px;
     border: 6px solid #a9a9a9;
     border-radius: 30px;
     background: none;
+}
+
+.vh-center {
+    padding: 30px 0;
+    text-align: center;
 }
