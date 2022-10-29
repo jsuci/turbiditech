@@ -23,7 +23,7 @@
 
                 <div class="panel is-primary has-background-white">
                     <p class="panel-heading">
-                        {{ records.0.device_name }} Records
+                        Turbidity Records
                     </p>
                     <div class="panel-block">
                         <div class="table-container is-full-width">
@@ -31,6 +31,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Device</th>
                                         <th>Date</th>
                                         <th>Time</th>
                                         <th>Image Link</th>
@@ -41,15 +42,20 @@
                                 </thead>
                                 <tbody>
                                     {% for record in records %}
-                                        {% if record.turbidityrecord__id != null %}
+                                        {% if record.records__id != null %}
                                             <tr>
-                                                <td>{{ record.turbidityrecord__id }}</td>
-                                                <td>{{ record.turbidityrecord__record_date }}</td>
-                                                <td>{{ record.turbidityrecord__record_time }}</td>
-                                                <td><a href="{{ record.turbidityrecord__record_image }}" target="_blank">{{ record.turbidityrecord__record_image }}</a></td>
-                                                <td>{{ record.turbidityrecord__valve_status }}</td>
-                                                <td>{{ record.turbidityrecord__water_status }}</td>
-                                                <td>{{ record.turbidityrecord__details }}</td>
+                                                <td>{{ record.records__id }}</td>
+                                                <td>{{ record.device_name }}</td>
+                                                <td>{{ record.records__record_date }}</td>
+                                                <td>{{ record.records__record_time }}</td>
+                                                <td><a href="{{ record.records__record_image }}" target="_blank">{{ record.records__record_image }}</a></td>
+                                                <td>{{ record.records__valve_status }}</td>
+                                                <td>{{ record.records__water_status }}</td>
+                                                <td>{{ record.records__details }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="8" class="has-text-centered">No records found.</td>
                                             </tr>
                                         {% endif %}
                                     {% endfor %}

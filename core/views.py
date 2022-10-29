@@ -130,15 +130,14 @@ def turbidity_records(request, device_id):
 
     # use device_id to locate in db the specific entry or device
 
-    device_record = Device.objects.filter(id=device_id).values(
-        'id', 'device_name', 'turbidityrecord__id', 'turbidityrecord__record_date',
-        'turbidityrecord__record_time', 'turbidityrecord__record_image',
-        'turbidityrecord__valve_status', 'turbidityrecord__water_status',
-        'turbidityrecord__details')
-
+    records = Device.objects.filter(id=device_id).values(
+        'device_name', 'records__id', 'records__record_date',
+        'records__record_time', 'records__record_image',
+        'records__valve_status', 'records__water_status',
+        'records__details')
 
     context = {
-        'records': device_record
+        'records': records
     }
 
     return render(request, 'turbidity-records.html', context)

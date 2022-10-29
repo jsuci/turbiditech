@@ -11,9 +11,9 @@ class DeviceRecordSerializer(serializers.ModelSerializer):
 
 
 class RecordSerializer(serializers.ModelSerializer):
-    record_device = DeviceRecordSerializer(many=True)
+    records = DeviceRecordSerializer(many=True)
     class Meta:
         model = Device
         fields = [
-            'id', 'device_name', 'location', 'record_device'
+            'id', 'device_name', 'location', 'records'
         ]
