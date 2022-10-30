@@ -125,9 +125,9 @@ class TurbidityRecord(models.Model):
     record_device       = models.ForeignKey(Device, on_delete=models.CASCADE, verbose_name="Record Device", related_name='records')
     record_date         = models.DateField(verbose_name='Record Date', auto_now_add=True)
     record_time         = models.TimeField(auto_now=False, auto_now_add=True, verbose_name='Record Time')
-    record_image        = models.CharField(verbose_name='Record Image', unique=True, blank=True, max_length=200)
+    record_image        = models.CharField(verbose_name='Record Image', blank=True, max_length=200)
     valve_status        = models.CharField(verbose_name='Vavle Status', max_length=3, choices=VavleControl.choices, default=VavleControl.OFF)
-    water_status        = models.CharField(verbose_name='Water Status', max_length=5, choices=WaterStatus.choices, default=WaterStatus.DIRTY)
+    water_status        = models.CharField(verbose_name='Water Status', max_length=5, choices=WaterStatus.choices, blank=True)
     details             = models.CharField(verbose_name='Details', max_length=200)
     created_on          = models.DateTimeField(auto_now_add=True)
 

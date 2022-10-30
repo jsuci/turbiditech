@@ -6,7 +6,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="60">
 
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="{% static 'core/css/bulma.min.css' %}">
@@ -28,7 +27,7 @@
 
   {% endblock %}
 
-  <script src="{% static 'core/js/footer.js' %}" charset="utf-8"></script>
+  {% include "includes/footer.html" %}
 
   </body>
 </html>

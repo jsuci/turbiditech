@@ -56,8 +56,6 @@ def api_records(request):
         return Response(serializer.data)
 
 
-
-
 def user_login(request):
 
     if request.user.is_authenticated:
@@ -115,11 +113,11 @@ def register_complete(request):
 @login_required
 def dashboard(request):
 
-    detectors = Device.objects.all().values('id', 'device_name', 'location')
-    
+    csrf = request.META['CSRF_COOKIE']
+  
 
     context = {
-        'detectors': detectors
+        'csrf': csrf
     }
 
     return render(request, 'dashboard.html', context)
