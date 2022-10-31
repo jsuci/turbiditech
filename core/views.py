@@ -175,7 +175,9 @@ def add_device(request):
         form = forms.AddDeviceForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            obj = form.save(commit=False)
+            obj.managed_by_id = request.user.id
+            obj.save()
             return redirect('list_devices')
 
     context = {

@@ -86,6 +86,7 @@ class Device(models.Model):
     device_name     = models.CharField(verbose_name='Device Name', max_length=120, unique=True)
     location        = models.CharField(verbose_name='Location', max_length=120)
     install_date    = models.DateField(verbose_name='Install Date')
+    install_time    = models.TimeField(verbose_name='Install Time')
     managed_by      = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Managed By")
     created_on      = models.DateTimeField(auto_now_add=True)
 
@@ -102,6 +103,7 @@ class Component(models.Model):
     component_name      = models.CharField(verbose_name='Component Name', max_length=120, unique=True)
     device_link         = models.ForeignKey(Device, on_delete=models.CASCADE, verbose_name="Device Link")
     install_date        = models.DateField(verbose_name='Install Date')
+    install_time        = models.TimeField(verbose_name='Install Time')
     installed_by        = models.CharField(verbose_name='Installed By', max_length=120)
     created_on          = models.DateTimeField(auto_now_add=True)
 

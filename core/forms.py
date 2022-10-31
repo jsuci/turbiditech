@@ -75,7 +75,7 @@ class ResetPasswordConfirmForm(SetPasswordForm):
 class AddDeviceForm(ModelForm):
     class Meta:
         model       = Device
-        fields      = ['device_name', 'location', 'install_date', 'managed_by']
+        fields      = ['device_name', 'location', 'install_date', 'install_time']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -83,13 +83,15 @@ class AddDeviceForm(ModelForm):
         self.fields['location'].widget.attrs.update({'class': 'input'})
         self.fields['install_date'].widget.attrs.update({'class': 'input'})
         self.fields['install_date'].widget.input_type = 'date'
-        self.fields['managed_by'].widget.attrs.update({'class': 'input'})
+        self.fields['install_time'].widget.attrs.update({'class': 'input'})
+        self.fields['install_time'].widget.input_type = 'time'
+
 
 # use same AddComponentForm to update component 
 class AddComponentForm(ModelForm):
     class Meta:
         model       = Component
-        fields      = ['component_name', 'device_link', 'install_date', 'installed_by']
+        fields      = ['component_name', 'device_link', 'install_date', 'install_time', 'installed_by']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -97,3 +99,5 @@ class AddComponentForm(ModelForm):
         self.fields['install_date'].widget.attrs.update({'class': 'input'})
         self.fields['install_date'].widget.input_type = 'date'
         self.fields['installed_by'].widget.attrs.update({'class': 'input'})
+        self.fields['install_time'].widget.attrs.update({'class': 'input'})
+        self.fields['install_time'].widget.input_type = 'time'
