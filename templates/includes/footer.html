@@ -27,6 +27,45 @@
         });
     });
 
+    // sidebar profile photo
+    function enableOverlay() {
+        const imgPhoto = document.getElementById('img-camera');
+        imgPhoto.style.color = "#fff";
+        imgPhoto.style.cursor = "pointer";
+
+        const imgProfile = document.getElementById('img-profile');
+        imgProfile.style.opacity = "1"
+        imgProfile.style.transition = ".5s ease"
+        imgProfile.style.backfaceVisibility = "hidden"
+        imgProfile.style.cursor = "pointer"
+        imgProfile.style.display = "block"
+
+
+        const imgOverlay = document.getElementById('id-img-overlay')
+        // imgOverlay.style.transition = ".5s ease"
+        imgOverlay.style.opacity = "0"
+        imgOverlay.style.position = "absolute"
+        imgOverlay.style.transform = "translate(170%, -250%)"
+
+        const imageHolder = document.getElementById('id-img-holder');
+        imageHolder.addEventListener('mouseover', (e) => {
+            imgProfile.style.opacity = "0.3"
+            imgOverlay.style.opacity = "1"
+
+        })
+
+        imageHolder.addEventListener('mouseout', (e) => {
+            imgProfile.style.opacity = "1"
+            imgOverlay.style.opacity = "0"
+
+        })
+
+        imageHolder.addEventListener('click', (e) => {
+            document.getElementById('img-camera').click()
+        })
+    }
+
+    enableOverlay();
 
 
     // display dashboard
