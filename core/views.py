@@ -2,7 +2,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -13,6 +12,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from core.models import Device, Component, TurbidityRecord
 from django.views.decorators.csrf import csrf_exempt
+from core.decorators import device_user_only, component_user_only
+
 
 # forms
 from . import forms
@@ -26,6 +27,7 @@ from core.serializers import DeviceRecordSerializer, RecordSerializer
 @api_view(['GET', 'PUT'])
 @csrf_exempt
 @permission_classes([IsAuthenticated])
+@device_user_only
 def api_device_record(request, device_id):
 
 
@@ -53,7 +55,7 @@ def api_device_record(request, device_id):
 def api_records(request):
 
     try:
-        all_records = Device.objects.all()
+        all_records = Device.objects.filter(managed_by_id=request.user.id)
     except TurbidityRecord.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -130,9 +132,8 @@ def dashboard(request):
 
 
 @login_required
+@device_user_only
 def turbidity_records(request, device_id):
-
-    # use device_id to locate in db the specific entry or device
 
     records = Device.objects.filter(id=device_id).values(
         'device_name', 'records__id', 'records__record_date',
@@ -147,14 +148,15 @@ def turbidity_records(request, device_id):
     return render(request, 'turbidity-records.html', context)
 
 
+
 @login_required
 def list_devices(request):
     # notification message after successful form submit
     # must be placed inside if form.is_valid()
     # messages.add_message(request, messages.INFO, 'Form submitted successfully.')
 
-    devices = Device.objects.all()
-    components = Component.objects.all()
+    devices = Device.objects.filter(managed_by_id=request.user.id)
+    components = Component.objects.filter(device_link__managed_by_id=request.user.id)
 
     context = {
         'devices': devices,
@@ -184,6 +186,25 @@ def add_device(request):
 
 
 @login_required
+def add_component(request):
+    form = forms.AddComponentForm()
+    
+    if request.method == 'POST':
+        form = forms.AddComponentForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('list_devices')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'add-component.html', context)
+
+
+@login_required
+@device_user_only
 def edit_device(request, device_id):
     selected_device = Device.objects.get(id=device_id)
 
@@ -204,24 +225,7 @@ def edit_device(request, device_id):
 
 
 @login_required
-def add_component(request):
-    form = forms.AddComponentForm()
-    
-    if request.method == 'POST':
-        form = forms.AddComponentForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('list_devices')
-
-    context = {
-        'form': form
-    }
-
-    return render(request, 'add-component.html', context)
-
-
-@login_required
+@component_user_only
 def edit_component(request, component_id):
     selected_component = Component.objects.get(id=component_id)
 
@@ -242,6 +246,7 @@ def edit_component(request, component_id):
 
 
 @login_required
+@device_user_only
 def delete_device(request, device_id):
     selected_device = Device.objects.get(id=device_id)
     selected_device.delete()
@@ -250,6 +255,7 @@ def delete_device(request, device_id):
 
 
 @login_required
+@component_user_only
 def delete_component(request, component_id):
     selected_component = Component.objects.get(id=component_id)
     selected_component.delete()
