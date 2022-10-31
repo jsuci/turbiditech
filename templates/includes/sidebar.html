@@ -10,10 +10,14 @@
             </div>
             <div class="header p-4 is-align-items-center is-flex is-flex-direction-column is-flex-wrap-nowrap">
                 <div class="img-holder">
-                    <img src="{{ user.profile_image.url }}" alt="">
+                    {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="">
+                    {% else %}
+                        <img src="{% static 'core/img/profile.png' %}" alt="">
+                    {% endif %}
                 </div>
                 
-                <h1 class="subtitle is-4 has-text-white mt-4">{{ request.user }}</h1>
+                <h1 class="subtitle is-4 has-text-white mt-4">{{ user }}</h1>
             </div>
             <div class="menu">
                 <div class="item"> 

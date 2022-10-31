@@ -6,10 +6,6 @@ def profile_img_path(self, filename):
     ext = filename.split('.')[-1]
     return f'profile_images/{self.pk}/profile.{ext}'
 
-def default_profile_img_path():
-    return f'profile_images/profile.png'
-
-
 class CustomUserManager(BaseUserManager):
 
     def create_user(self, email, first_name, last_name, password=None):
@@ -64,8 +60,7 @@ class CustomUser(AbstractBaseUser):
     first_name      = models.CharField(verbose_name='First Name', max_length=60)
     last_name       = models.CharField(verbose_name='Last Name', max_length=60)
     profile_image   = models.ImageField(max_length=255,
-                        upload_to=profile_img_path, null=True, blank=True,
-                        default=default_profile_img_path)
+                        upload_to=profile_img_path, null=True, blank=True)
 
     objects = CustomUserManager()
 
