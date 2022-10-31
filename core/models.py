@@ -4,7 +4,7 @@ from uuid import uuid4
 
 def profile_img_path(self, filename):
     ext = filename.split('.')[-1]
-    return f'profile_images/{uuid4().hex}/profile.{ext}'
+    return f'profile_images/{self.pk}/profile.{ext}'
 
 def default_profile_img_path():
     return f'profile_images/profile.png'

@@ -9,7 +9,10 @@
                 <i class="fas fa-times"></i>
             </div>
             <div class="header p-4 is-align-items-center is-flex is-flex-direction-column is-flex-wrap-nowrap">
-                <img src="{% static 'core/img/profile.png' %}" class="mt-6" alt="">
+                <div class="img-holder">
+                    <img src="{{ user.profile_image.url }}" alt="">
+                </div>
+                
                 <h1 class="subtitle is-4 has-text-white mt-4">{{ request.user }}</h1>
             </div>
             <div class="menu">
