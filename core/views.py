@@ -1,8 +1,9 @@
 # rest_framework
-from rest_framework.parsers import JSONParser
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 # django
@@ -24,7 +25,10 @@ from core.serializers import DeviceRecordSerializer, RecordSerializer
 # api
 @api_view(['GET', 'PUT'])
 @csrf_exempt
+@permission_classes([IsAuthenticated])
 def api_device_record(request, device_id):
+
+
     try:
         device_records = TurbidityRecord.objects.filter(record_device=device_id)
     except TurbidityRecord.DoesNotExist:
@@ -45,7 +49,9 @@ def api_device_record(request, device_id):
 
 @api_view(['GET'])
 @csrf_exempt
+@permission_classes([IsAuthenticated])
 def api_records(request):
+
     try:
         all_records = Device.objects.all()
     except TurbidityRecord.DoesNotExist:

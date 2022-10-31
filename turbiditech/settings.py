@@ -205,3 +205,10 @@ PASSWORD_RESET_TIMEOUT = 14400
 #     "127.0.0.1",
 # ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
