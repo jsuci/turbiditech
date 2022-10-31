@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -156,16 +156,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-# use for deployment when debug = False
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
-# use for deployment
-if not DEBUG:
-    STATIC_ROOT = 'static/'
-else:
+if DEBUG:
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static/'),
+        os.path.join(BASE_DIR, 'static'),
     ]
+else:
+    STATIC_ROOT = 'static/'
+
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 
 
 
@@ -201,9 +203,9 @@ PASSWORD_RESET_TIMEOUT = 14400
 
 
 # DEBUGGING
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+# INTERNAL_IPS = [
+#     "127.0.0.1",
+# ]
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': [

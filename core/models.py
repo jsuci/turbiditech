@@ -1,5 +1,14 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
+from uuid import uuid4
+
+def profile_img_path(self, filename):
+    ext = filename.split('.')[-1]
+    return f'profile_images/{uuid4().hex}/profile.{ext}'
+
+def default_profile_img_path():
+    return f'profile_images/profile.png'
+
 
 class CustomUserManager(BaseUserManager):
 
@@ -54,6 +63,9 @@ class CustomUser(AbstractBaseUser):
     # custom user fields
     first_name      = models.CharField(verbose_name='First Name', max_length=60)
     last_name       = models.CharField(verbose_name='Last Name', max_length=60)
+    profile_image   = models.ImageField(max_length=255,
+                        upload_to=profile_img_path, null=True, blank=True,
+                        default=default_profile_img_path)
 
     objects = CustomUserManager()
 
