@@ -34,6 +34,7 @@
         const recordsAPIURL = window.location.origin + '/api/turbidity-records/'
         const recordsURL = window.location.origin + '/turbidity-records/'
         const addDeviceURL = window.location.origin + '/add-device/'
+        const listDevice = window.location.origin + '/list-devices/'
 
 
         fetch(recordsAPIURL)
@@ -56,13 +57,13 @@
                     const valveOnHTML = `<td><input onclick="toggleValve(${deviceID}, this)" class="toggle" type="checkbox" checked/></td>`
 
                     if (latestrecord != undefined) {
-                        boxContainer.insertAdjacentHTML('beforeend', `<div class="column is-5 mb-6"><div class="box"><h5 class="title is-5 has-text-centered">${deviceName}</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Water Quality</td>${latestrecord['water_status'] == '' ? waterNoRecHTML : (latestrecord['water_status'] == 'clean' ? waterCleanHTML : waterDirtyHTML)}</tr><tr><td>Valve Status</td>${latestrecord['valve_status'] == 'on' ? valveOnHTML : valveOffHTML}</tr><tr><td>Location</td><td><span>${location}</span></td></tr><tr><td>Turbidity Records</td><td><a href="${viewRecordsURL}">View Records</a></td></tr></tbody></table></div></div>`)
+                        boxContainer.insertAdjacentHTML('beforeend', `<div class="column is-5 mb-6"><a href="${listDevice}"><div class="box"><h5 class="title is-5 has-text-centered">${deviceName}</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Water Quality</td>${latestrecord['water_status'] == '' ? waterNoRecHTML : (latestrecord['water_status'] == 'clean' ? waterCleanHTML : waterDirtyHTML)}</tr><tr><td>Valve Status</td>${latestrecord['valve_status'] == 'on' ? valveOnHTML : valveOffHTML}</tr><tr><td>Location</td><td><span>${location}</span></td></tr><tr><td>Turbidity Records</td><td><a href="${viewRecordsURL}">View Records</a></td></tr></tbody></table></div></a></div>`)
                     } else {
-                        boxContainer.insertAdjacentHTML('beforeend', `<div class="column is-5 mb-6"><div class="box"><h5 class="title is-5 has-text-centered">${deviceName}</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Water Quality</td>${waterNoRecHTML}</tr><tr><td>Valve Status</td>${valveOffHTML}</tr><tr><td>Location</td><td><span>${location}</span></td></tr><tr><td>Turbidity Records</td><td><a href="${viewRecordsURL}">View Records</a></td></tr></tbody></table></div></div>`)
+                        boxContainer.insertAdjacentHTML('beforeend', `<div class="column is-5 mb-6"><a href="${listDevice}"><div class="box"><h5 class="title is-5 has-text-centered">${deviceName}</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Water Quality</td>${waterNoRecHTML}</tr><tr><td>Valve Status</td>${valveOffHTML}</tr><tr><td>Location</td><td><span>${location}</span></td></tr><tr><td>Turbidity Records</td><td><a href="${viewRecordsURL}">View Records</a></td></tr></tbody></table></div></a></div>`)
                     }
                 }
             } else {
-                boxContainer.insertAdjacentHTML('beforeend' , `<div class="column is-5 mb-6" style="margin-top:80px"><a href="${addDeviceURL}" class="href"><div class="box box-blank"><div class="content vh-center"><i class="fa fa-plus fa-6x has-text-grey"></i><h2 class="title is-2 has-text-grey">Add Device</h2></div></div></a></div>`)
+                boxContainer.insertAdjacentHTML('beforeend' , `<div class="column is-5 mb-6"><a href="${addDeviceURL}"><div class="box box-blank"><div class="content vh-center"><i class="fa fa-plus fa-6x has-text-grey"></i><h2 class="title is-2 has-text-grey">Add Device</h2></div></div></a></div>`)
             }
 
         });     
