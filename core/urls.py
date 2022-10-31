@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
 from . import forms
@@ -8,8 +8,6 @@ urlpatterns = [
     # api
     path('api/turbidity-records/<int:device_id>', views.api_device_record),
     path('api/turbidity-records/', views.api_records),
-
-
 
     # authentication
     path('login/', views.user_login, name='user_login'),
