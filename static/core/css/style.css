@@ -22,7 +22,7 @@ html, body {
     background: #1b1a1b;
     width: 250px;
     height: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -250px;
     overflow-y: auto;
