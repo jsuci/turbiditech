@@ -23,7 +23,9 @@
   </head>
  <body>
 
-  {% include "includes/sidebar.html" %}
+  {% if user.is_authenticated %}
+    {% include "includes/sidebar.html" %}
+  {% endif %}
 
   {% block content %}
 
