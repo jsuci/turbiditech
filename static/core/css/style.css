@@ -17,27 +17,54 @@ html, body {
     left: 30px;
 }
 
-/* sidebar content */
-.side-bar {
-    background: #1b1a1b;
-    width: 250px;
-    height: 100%;
-    position: absolute;
-    height: 100vh;
-    top: 0;
-    left: -250px;
-    overflow-y: auto;
-    transition: 0.6s ease;
-    transition-property: left;
-    z-index: 999;
+/* sidebar content desktop*/
+@media only screen and (min-width: 1023px) {
+    .side-bar {
+        background: #1b1a1b;
+        width: 250px;
+        height: 100%;
+        position: absolute;
+        height: 100vh;
+        top: 0;
+        left: -250px;
+        overflow-y: auto;
+        transition-property: left;
+        z-index: 999;
+    }
+
+    .side-bar.active {
+        left: 0;
+    }
 }
+
+
+
+/* sidebar content mobile*/
+@media only screen and (max-width: 1023px) {
+    .side-bar {
+        background: #1b1a1b;
+        width: 100%;
+        height: auto;
+        position: fixed;
+        top: -650px;
+        overflow-x: auto;
+        transition-property: top;
+        z-index: 999;
+    }
+
+    .side-bar.active {
+        top: 0;
+    }
+}
+
 
 .side-bar::-webkit-scrollbar {
     width: 0px;
 }
 
+
 .side-bar.active {
-    left: 0;
+    top: 0;
 }
 
 
