@@ -10,9 +10,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from core.models import Device, Component, TurbidityRecord
+from core.models import Device, Component, TurbidityRecord, CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from core.decorators import device_user_only, component_user_only
+from django.conf import settings
 
 
 # forms
@@ -119,11 +120,40 @@ def register_complete(request):
     return render(request, 'register-complete.html', {})
 
 @login_required
+def edit_profile_image(request):
+    account = CustomUser.objects.get(pk=request.user.id)
+
+    context = {}
+
+    if request.POST:
+        form = forms.ProfileImageUpdateForm(request.FILES, instance=account)
+
+        if form.is_valid():
+            form.save()
+        else:
+            form = forms.ProfileImageUpdateForm(request.FILES, instance=request.user, initial={
+                "profile_image": account.profile_image
+            })
+
+            context["form"] = form
+    else:
+            form = forms.ProfileImageUpdateForm(request.FILES, instance=request.user, initial={
+                "profile_image": account.profile_image
+            })
+
+            context["form"] = form
+
+    context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
+
+
+    return render(request, 'header.html', context)
+
+
+@login_required
 def dashboard(request):
 
     csrf = request.META['CSRF_COOKIE']
   
-
     context = {
         'csrf': csrf
     }

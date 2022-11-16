@@ -101,3 +101,10 @@ class AddComponentForm(ModelForm):
         self.fields['installed_by'].widget.attrs.update({'class': 'input'})
         self.fields['install_time'].widget.attrs.update({'class': 'input'})
         self.fields['install_time'].widget.input_type = 'time'
+
+
+class ProfileImageUpdateForm(ModelForm):
+
+    class Meta:
+        model   = CustomUser
+        fields  = ['profile_image']
