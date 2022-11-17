@@ -48,7 +48,6 @@ class CustomUserManager(BaseUserManager):
 
 
 def profile_img_path(self, filename):
-    ext = filename.split('.')[-1]
     return f'profile_images/{self.pk}/profile.jpg'
 
 class CustomUser(AbstractBaseUser):
