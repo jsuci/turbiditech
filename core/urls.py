@@ -6,7 +6,8 @@ from . import forms
 urlpatterns = [
 
     # api
-    path('api/turbidity-records/<int:device_id>', views.api_device_record),
+    path('api/turbidity-records/<int:device_id>', views.api_device_records),
+    path('api/users/<int:user_id>', views.api_users),
     path('api/turbidity-records/', views.api_records),
 
     # authentication
@@ -44,5 +45,5 @@ urlpatterns = [
     path('delete-device/<int:device_id>', views.delete_device, name='delete_device'),
     path('delete-component/<int:component_id>', views.delete_component, name='delete_component'),
 
-    
+
 ]
