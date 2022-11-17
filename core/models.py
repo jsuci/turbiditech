@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django_cleanup import cleanup
+from django_resized import ResizedImageField
 from uuid import uuid4
 
 
@@ -48,8 +49,8 @@ class CustomUserManager(BaseUserManager):
 
 def profile_img_path(self, filename):
     ext = filename.split('.')[-1]
-    return f'profile_images/{self.pk}/profile.{ext}'
-    
+    return f'profile_images/{self.pk}/profile.jpg'
+
 class CustomUser(AbstractBaseUser):
 
     email           = models.EmailField(verbose_name='Email', max_length=60, unique=True)
@@ -62,8 +63,7 @@ class CustomUser(AbstractBaseUser):
     # custom user fields
     first_name      = models.CharField(verbose_name='First Name', max_length=60)
     last_name       = models.CharField(verbose_name='Last Name', max_length=60)
-    profile_image   = models.ImageField(max_length=255,
-                        upload_to=profile_img_path, null=True, blank=True)
+    profile_image   = ResizedImageField(size=[500, 500], crop=['middle', 'center'], upload_to=profile_img_path)
 
     objects = CustomUserManager()
 
@@ -123,7 +123,7 @@ class Component(models.Model):
     class Meta:
         verbose_name = 'component'
 
-
+@cleanup.cleanup_ignore
 class TurbidityRecord(models.Model):
 
     class VavleControl(models.TextChoices):
