@@ -10,9 +10,15 @@
             </div>
             <div class="header p-4 is-align-items-center is-flex is-flex-direction-column is-flex-wrap-nowrap">
                 <div class="img-holder" id="id-img-holder">
-                    <div class="img-overlay" id="id-img-overlay">
-                        <i class="fa fa-2x fa-light fa-camera" id="img-camera"></i>
-                    </div>
+
+                    <form id="imageProfileForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input class="is-hidden" type="file" name="profile_image" id="id_profile_image" onchange="uploadProfileImage(this)" accept ="image/*">
+                        <div class="img-overlay" id="id-img-overlay">
+                            <i class="fa fa-2x fa-light fa-camera" id="img-camera"></i>
+                        </div>
+                    </form>
+
                     {% if user.profile_image %}
                         <img src="{{ user.profile_image.url }}" id="img-profile" alt="">
                     {% else %}
