@@ -1,5 +1,12 @@
 from rest_framework import serializers
-from core.models import Device, TurbidityRecord
+from core.models import Device, TurbidityRecord, CustomUser
+
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'first_name', 'last_name', 'profile_image']
+
 
 class DeviceRecordSerializer(serializers.ModelSerializer):
     class Meta:
