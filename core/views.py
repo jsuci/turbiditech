@@ -123,30 +123,12 @@ def register_complete(request):
 def edit_profile_image(request):
     account = CustomUser.objects.get(pk=request.user.id)
 
-    context = {}
-
     if request.POST:
         form = forms.ProfileImageUpdateForm(request.FILES, instance=account)
 
         if form.is_valid():
             form.save()
-        else:
-            form = forms.ProfileImageUpdateForm(request.FILES, instance=request.user, initial={
-                "profile_image": account.profile_image
-            })
 
-            context["form"] = form
-    else:
-            form = forms.ProfileImageUpdateForm(request.FILES, instance=request.user, initial={
-                "profile_image": account.profile_image
-            })
-
-            context["form"] = form
-
-    context['DATA_UPLOAD_MAX_MEMORY_SIZE'] = settings.DATA_UPLOAD_MAX_MEMORY_SIZE
-
-
-    return render(request, 'header.html', context)
 
 
 @login_required

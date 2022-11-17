@@ -10,14 +10,14 @@
             </div>
             <div class="header p-4 is-align-items-center is-flex is-flex-direction-column is-flex-wrap-nowrap">
                 <div class="img-holder" id="id-img-holder">
+                    <div class="img-overlay" id="id-img-overlay">
+                        <i class="fa fa-2x fa-light fa-camera" id="img-camera"></i>
+                    </div>
                     {% if user.profile_image %}
                         <img src="{{ user.profile_image.url }}" id="img-profile" alt="">
                     {% else %}
                         <img src="{% static 'core/img/profile.png' %}" id="img-profile" alt="">
                     {% endif %}
-                    <div class="img-overlay" id="id-img-overlay">
-                        <i class="fa fa-2x fa-light fa-camera" id="img-camera"></i>
-                    </div>
                 </div>
                 
                 <h1 class="subtitle is-4 has-text-white mt-4">{{ user }}</h1>

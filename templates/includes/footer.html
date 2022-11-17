@@ -29,9 +29,9 @@
 
     // sidebar profile photo
     function enableOverlay() {
-        const imgPhoto = document.getElementById('img-camera');
-        imgPhoto.style.color = "#fff";
-        imgPhoto.style.cursor = "pointer";
+        const imgCamera = document.getElementById('img-camera');
+        imgCamera.style.color = "#fff";
+        imgCamera.style.cursor = "pointer";
 
         const imgProfile = document.getElementById('img-profile');
         imgProfile.style.opacity = "1"
@@ -44,8 +44,8 @@
         const imgOverlay = document.getElementById('id-img-overlay')
         // imgOverlay.style.transition = ".5s ease"
         imgOverlay.style.opacity = "0"
-        imgOverlay.style.position = "absolute"
-        imgOverlay.style.transform = "translate(170%, -250%)"
+        imgOverlay.style.position = "fixed"
+        imgOverlay.style.transform = "translate(180%, 150%)"
 
         const imageHolder = document.getElementById('id-img-holder');
         imageHolder.addEventListener('mouseover', (e) => {
@@ -60,7 +60,7 @@
 
         })
 
-        imgPhoto.addEventListener('click', (e) => {
+        imgCamera.addEventListener('click', (e) => {
             console.log("To Do: Upload Photo dialog. -jamil magsuci")
         })
     }

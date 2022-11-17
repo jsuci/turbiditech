@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
+from django_cleanup import cleanup
 from uuid import uuid4
 
 def profile_img_path(self, filename):
