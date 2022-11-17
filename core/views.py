@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import parser_classes
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 # django
@@ -20,7 +22,7 @@ from django.conf import settings
 from . import forms
 
 # serializers
-from core.serializers import DeviceRecordSerializer, RecordSerializer
+from core.serializers import DeviceRecordSerializer, RecordSerializer, CustomUserSerializer
 
 
 
@@ -29,7 +31,7 @@ from core.serializers import DeviceRecordSerializer, RecordSerializer
 @csrf_exempt
 @permission_classes([IsAuthenticated])
 @device_user_only
-def api_device_record(request, device_id):
+def api_device_records(request, device_id):
 
 
     try:
@@ -63,6 +65,28 @@ def api_records(request):
     if request.method == 'GET':
         serializer = RecordSerializer(all_records, many=True)
         return Response(serializer.data)
+
+
+@api_view(['GET', 'PATCH'])
+@parser_classes([MultiPartParser, FormParser])
+@permission_classes([IsAuthenticated])
+def api_users(request, user_id):
+    try:
+        user = CustomUser.objects.get(id=user_id)
+    except CustomUser.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = CustomUserSerializer(user)
+        return Response(serializer.data)
+
+    if request.method == 'PATCH':
+        serializer = CustomUserSerializer(user, data=request.data, partial=True)
+  
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def user_login(request):
@@ -121,14 +145,14 @@ def register_complete(request):
 
 @login_required
 def edit_profile_image(request):
-    account = CustomUser.objects.get(pk=request.user.id)
 
     if request.POST:
-        form = forms.ProfileImageUpdateForm(request.FILES, instance=account)
+        form = forms.ProfileImageUpdateForm(request.POST, request.FILES, instance=request.user)
 
         if form.is_valid():
             form.save()
 
+    return redirect(request.META['HTTP_REFERER'])
 
 
 @login_required
@@ -158,7 +182,6 @@ def turbidity_records(request, device_id):
     }
 
     return render(request, 'turbidity-records.html', context)
-
 
 
 @login_required
