@@ -3,9 +3,7 @@ from django.db import models
 from django_cleanup import cleanup
 from uuid import uuid4
 
-def profile_img_path(self, filename):
-    ext = filename.split('.')[-1]
-    return f'profile_images/{self.pk}/profile.{ext}'
+
 
 class CustomUserManager(BaseUserManager):
 
@@ -48,6 +46,10 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
+def profile_img_path(self, filename):
+    ext = filename.split('.')[-1]
+    return f'profile_images/{self.pk}/profile.{ext}'
+    
 class CustomUser(AbstractBaseUser):
 
     email           = models.EmailField(verbose_name='Email', max_length=60, unique=True)

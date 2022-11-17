@@ -117,13 +117,12 @@ html, body {
 }
 
 .close-btn {
-    position: absolute;
     color: #fff;
-    font-size: 23px;
-    right: 0px;
-    right: 20px;
-    top: 10px;
+    font-size: 30px;
+    top: 30px;
     cursor: pointer;
+    left: 30px;
+    position: absolute;
 }
 
 /* other sidebar components */
@@ -131,7 +130,7 @@ html, body {
     max-width: 150px;
     height: 150px;
     overflow: hidden;
-    margin-top: 40px;
+    margin-top: 90px;
     border-radius: 50%;
     border: 3px solid rgb(233, 233, 233);
 }
