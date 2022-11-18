@@ -9,15 +9,16 @@
             const imageFile = input.files[0];
             const formData = new FormData();
             const csrf = document.querySelector('input[name=csrfmiddlewaretoken]').value
-            const user_id = `{{ user.id }}`
+            const user_id = document.querySelector('#id_profile_image').getAttribute('data-id')
             const imageToDisplay = document.getElementById('img-profile')
+            const root = location.protocol + '//' + location.host;
 
             // construct data to send on post request
 
             formData.append("profile_image", imageFile);
 
             axios.all([
-                axios.patch(`api/users/${user_id}`, formData, {
+                axios.patch(`${root}/api/users/${user_id}`, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         "X-CSRFTOKEN": csrf,
