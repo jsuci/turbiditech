@@ -77,6 +77,9 @@
 
     $(document).ready(function() {
 
+        const user_id = document.querySelector('#id_profile_image').getAttribute('data-id')
+        const root = location.protocol + '//' + location.host;
+
         // navbar menu toggle
         $('.sub-btn').click(function() {
             $(this).next('.sub-menu').slideToggle();
@@ -102,6 +105,21 @@
             $target.classList.remove('is-active');
             });
         });
+
+        // display profile image
+        axios.get(`${root}/api/users/${user_id}`)
+            .then(resp => {
+                const imageToDisplay = document.getElementById('img-profile')
+                const profileImageLink = resp.data.profile_image
+                axios.get(`${root}/${profileImageLink}`)
+                    .then(resp => {
+                        if (resp.status != 404) {
+                            imageToDisplay.src = profileImageLink
+                        }
+                    })
+                    .catch(err => console.log(err))
+            })
+            .catch(err => console.log(err))
 
     });
 
@@ -158,8 +176,8 @@
         const waterStatText = (waterStat == 'No records yet' ? '' : waterStat)
         const recordsAPIURL = window.location.origin + '/api/turbidity-records/'
         const valveStat = el.checked ? "on" :  "off"
-        const csrf = '{{ csrf }}'
-        const user = '{{ user }}'
+        const csrf = document.querySelector('input[name=csrfmiddlewaretoken]').value
+        const user = document.querySelector('#boxDetector').getAttribute('data-id')
         const details = `User ${user} has manually turned ${valveStat.toUpperCase()} the valve.`
 
 

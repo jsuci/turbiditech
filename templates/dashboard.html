@@ -8,8 +8,12 @@
 
 <section class="section">
     <div class="container">
-        <div class="columns is-centered is-variable is-8 is-multiline mt-6" id="box-container">
-        </div> <!-- end columns -->
+        <form id="boxDetector" data-id="{{user.id}}">
+            {% csrf_token %}
+            <div class="columns is-centered is-variable is-8 is-multiline mt-6" id="box-container">
+            </div> <!-- end columns -->
+        </form>
+
     </div>
 </section>
 

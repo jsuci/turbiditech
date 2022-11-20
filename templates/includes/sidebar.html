@@ -19,11 +19,7 @@
                         </div>
                     </form>
 
-                    {% if user.profile_image %}
-                        <img src="{{ user.profile_image.url }}" id="img-profile" alt="">
-                    {% else %}
-                        <img src="{% static 'core/img/profile.png' %}" id="img-profile" alt="">
-                    {% endif %}
+                    <img src="{% static 'core/img/profile.png' %}" id="img-profile" alt="">
                 </div>
                 
                 <h1 class="subtitle is-4 has-text-white mt-4">{{ user }}</h1>

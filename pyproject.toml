@@ -19,7 +19,6 @@ psycopg2-binary = "^2.9.4"
 python-dotenv = "^0.21.0"
 django-debug-toolbar = "3.5.0"
 tzdata = "^2022.6"
-django-cleanup = "^6.0.0"
 django-resized = "^1.0.2"
 
 
