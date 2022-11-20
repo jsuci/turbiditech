@@ -111,7 +111,7 @@
             .then(resp => {
                 const imageToDisplay = document.getElementById('img-profile')
                 const profileImageLink = resp.data.profile_image
-                axios.get(`${root}/${profileImageLink}`)
+                axios.get(`${root}${profileImageLink}`)
                     .then(resp => {
                         if (resp.status != 404) {
                             imageToDisplay.src = profileImageLink
