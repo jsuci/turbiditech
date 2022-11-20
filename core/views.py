@@ -15,7 +15,6 @@ from django.contrib.auth.decorators import login_required
 from core.models import Device, Component, TurbidityRecord, CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from core.decorators import device_user_only, component_user_only
-from django.conf import settings
 
 
 # forms
@@ -84,6 +83,7 @@ def api_users(request, user_id):
         serializer = CustomUserSerializer(user, data=request.data, partial=True)
   
         if serializer.is_valid():
+            user.profile_image.delete(save=False)
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -143,28 +143,11 @@ def register(request):
 def register_complete(request):
     return render(request, 'register-complete.html', {})
 
-@login_required
-def edit_profile_image(request):
-
-    if request.POST:
-        form = forms.ProfileImageUpdateForm(request.POST, request.FILES, instance=request.user)
-
-        if form.is_valid():
-            form.save()
-
-    return redirect(request.META['HTTP_REFERER'])
-
 
 @login_required
 def dashboard(request):
 
-    csrf = request.META['CSRF_COOKIE']
-  
-    context = {
-        'csrf': csrf
-    }
-
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dashboard.html', {})
 
 
 @login_required
@@ -175,7 +158,17 @@ def turbidity_records(request, device_id):
         'device_name', 'records__id', 'records__record_date',
         'records__record_time', 'records__record_image',
         'records__valve_status', 'records__water_status',
-        'records__details')
+        'records__details').order_by('-records__id')
+
+    # filter records via device id and date
+    # records = Device.objects.filter(
+    #     id=device_id,
+    #     records__record_date__range=["2022-11-11", "2022-11-19"]
+    # ).values(
+    #     'device_name', 'records__id', 'records__record_date',
+    #     'records__record_time', 'records__record_image',
+    #     'records__valve_status', 'records__water_status',
+    #     'records__details').order_by('-records__id')
 
     context = {
         'records': records
