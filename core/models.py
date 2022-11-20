@@ -1,8 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django_cleanup import cleanup
 from django_resized import ResizedImageField
-from uuid import uuid4
 
 
 
@@ -122,7 +120,7 @@ class Component(models.Model):
     class Meta:
         verbose_name = 'component'
 
-@cleanup.cleanup_ignore
+
 class TurbidityRecord(models.Model):
 
     class VavleControl(models.TextChoices):
