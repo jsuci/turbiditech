@@ -15,9 +15,9 @@ class DeviceRecordSerializer(serializers.ModelSerializer):
             'valve_status', 'water_status', 'record_image',
             'record_device', 'details', 'created_on'
         ]
+        
 
-
-class RecordSerializer(serializers.ModelSerializer):
+class AllRecordSerializer(serializers.ModelSerializer):
     records = DeviceRecordSerializer(many=True)
 
     class Meta:
