@@ -21,20 +21,20 @@ from core.decorators import device_user_only, component_user_only
 from . import forms
 
 # serializers
-from core.serializers import DeviceRecordSerializer, RecordSerializer, CustomUserSerializer
+from core.serializers import DeviceRecordSerializer, AllRecordSerializer, CustomUserSerializer
 
 
 
 # api
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'POST'])
 @csrf_exempt
 @permission_classes([IsAuthenticated])
 @device_user_only
 def api_device_records(request, device_id):
 
-
     try:
         device_records = TurbidityRecord.objects.filter(record_device=device_id)
+
     except TurbidityRecord.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -42,7 +42,7 @@ def api_device_records(request, device_id):
         serializer = DeviceRecordSerializer(device_records, many=True)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         serializer = DeviceRecordSerializer(data=request.data)
   
         if serializer.is_valid():
@@ -54,15 +54,15 @@ def api_device_records(request, device_id):
 @api_view(['GET'])
 @csrf_exempt
 @permission_classes([IsAuthenticated])
-def api_records(request):
+def api_all_records(request):
 
     try:
         all_records = Device.objects.filter(managed_by_id=request.user.id)
-    except TurbidityRecord.DoesNotExist:
+    except Device.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = RecordSerializer(all_records, many=True)
+        serializer = AllRecordSerializer(all_records, many=True)
         return Response(serializer.data)
 
 
