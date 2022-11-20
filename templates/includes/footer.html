@@ -66,39 +66,43 @@
 
     function enableOverlay() {
         const imgCamera = document.getElementById('img-camera');
-        imgCamera.style.color = "#fff";
-        imgCamera.style.cursor = "pointer";
 
-        const imgProfile = document.getElementById('img-profile');
-        imgProfile.style.opacity = "1"
-        imgProfile.style.transition = ".5s ease"
-        imgProfile.style.backfaceVisibility = "hidden"
-        imgProfile.style.cursor = "pointer"
-        imgProfile.style.display = "block"
+        if (imgCamera) {
+            imgCamera.style.color = "#fff";
+            imgCamera.style.cursor = "pointer";
 
-
-        const imgOverlay = document.getElementById('id-img-overlay')
-        imgOverlay.style.opacity = "0"
-        imgOverlay.style.position = "absolute"
-        imgOverlay.style.transform = "translate(180%, 150%)"
-        imgOverlay.style.zIndex = "999"
-
-        const imageHolder = document.getElementById('id-img-holder');
-        imageHolder.addEventListener('mouseover', (e) => {
-            imgProfile.style.opacity = "0.3"
-            imgOverlay.style.opacity = "1"
-
-        })
-
-        imageHolder.addEventListener('mouseout', (e) => {
+            const imgProfile = document.getElementById('img-profile');
             imgProfile.style.opacity = "1"
+            imgProfile.style.transition = ".5s ease"
+            imgProfile.style.backfaceVisibility = "hidden"
+            imgProfile.style.cursor = "pointer"
+            imgProfile.style.display = "block"
+
+
+            const imgOverlay = document.getElementById('id-img-overlay')
             imgOverlay.style.opacity = "0"
+            imgOverlay.style.position = "absolute"
+            imgOverlay.style.transform = "translate(180%, 150%)"
+            imgOverlay.style.zIndex = "999"
 
-        })
+            const imageHolder = document.getElementById('id-img-holder');
+            imageHolder.addEventListener('mouseover', (e) => {
+                imgProfile.style.opacity = "0.3"
+                imgOverlay.style.opacity = "1"
 
-        imgCamera.addEventListener('click', (e) => {
-            document.getElementById('id_profile_image').click();
-        })
+            })
+
+            imageHolder.addEventListener('mouseout', (e) => {
+                imgProfile.style.opacity = "1"
+                imgOverlay.style.opacity = "0"
+
+            })
+
+            imgCamera.addEventListener('click', (e) => {
+                document.getElementById('id_profile_image').click();
+            })
+        }
+
     }
 
     enableOverlay();
@@ -202,35 +206,5 @@
         console.log(deviceID)
     }
 
-    
-    // async function toggleValve(deviceID, el) {
-    //     const waterStat = document.getElementById(`water-stat-${deviceID}`).textContent;
-    //     const waterStatText = (waterStat == 'No records yet' ? '' : waterStat)
-    //     const recordsAPIURL = window.location.origin + '/api/turbidity-records/'
-    //     const valveStat = el.checked ? "on" :  "off"
-    //     const csrf = document.querySelector('input[name=csrfmiddlewaretoken]').value
-    //     const user = document.querySelector('#boxDetector').getAttribute('data-id')
-    //     const details = `User ${user} has manually turned ${valveStat.toUpperCase()} the valve.`
 
-
-    //     data = {
-    //         'valve_status': valveStat,
-    //         'water_status': waterStatText,
-    //         'record_image': '',
-    //         'record_device': deviceID,
-    //         'details': details
-    //     }
-        
-    //     fetch(recordsAPIURL + deviceID, {
-    //         method: 'PUT',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-CSRFToken': csrf,
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    //         .then((response) => response.json())
-    //         // .then((data) => console.log(data))
-    //         .then(() => location.reload())
-    // }
 </script>
