@@ -45,7 +45,7 @@ html, body {
         background: #1b1a1b;
         width: 100%;
         height: auto;
-        position: fixed;
+        position: absolute;
         top: -650px;
         overflow-x: auto;
         transition-property: top;
