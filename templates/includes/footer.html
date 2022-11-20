@@ -1,7 +1,37 @@
 <script>
 
+    $(document).ready(function() {
+
+        // navbar menu toggle
+        $('.sub-btn').click(function() {
+            $(this).next('.sub-menu').slideToggle();
+            $(this).find('.dropdown').toggleClass('rotate');
+        });
+        
+        $('.menu-btn').click(function() {
+            $('.side-bar').addClass('active');
+            $('.menu-btn').css("visibility", "hidden");
+        });
+
+        $('.close-btn').click(function() {
+            $('.side-bar').removeClass('active');
+            $('.menu-btn').css("visibility", "visible");
+        });
+
+
+        // close button modals
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+            const $target = $close.closest('.modal');
+
+            $close.addEventListener('change', () => {
+                $target.classList.remove('is-active');
+            });
+        });
+    });
+
+
+
     // sidebar profile photo
-    enableOverlay();
 
     function uploadProfileImage(input) {
         // check if there are files selected
@@ -71,118 +101,136 @@
         })
     }
 
-
-
-
-
-    $(document).ready(function() {
-
-        const user_id = document.querySelector('#id_profile_image').getAttribute('data-id')
-        const root = location.protocol + '//' + location.host;
-
-        // navbar menu toggle
-        $('.sub-btn').click(function() {
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate');
-        });
-         
-        $('.menu-btn').click(function() {
-            $('.side-bar').addClass('active');
-            $('.menu-btn').css("visibility", "hidden");
-        });
-
-        $('.close-btn').click(function() {
-            $('.side-bar').removeClass('active');
-            $('.menu-btn').css("visibility", "visible");
-        });
-
-
-        // close button modals
-        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-            const $target = $close.closest('.modal');
-
-            $close.addEventListener('click', () => {
-            $target.classList.remove('is-active');
-            });
-        });
-    });
+    enableOverlay();
 
 
     // display dashboard
-    displayDashboard();
-
-    async function displayDashboard() {
-        const recordsAPIURL = window.location.origin + '/api/turbidity-records/'
+    function deviceHTML(record, boxContainer) {
+        // api
+        const recordsAPIURL = window.location.origin + '/api/device-records/'
         const recordsURL = window.location.origin + '/turbidity-records/'
-        const addDeviceURL = window.location.origin + '/add-device/'
-        const listDevice = window.location.origin + '/list-devices/'
 
+        // data
+        const deviceID = record['id']
+        const deviceName = record['device_name']
+        const location = record['location']
+        const latestRecord = record['records']
+        const deviceRecordURL = `${recordsURL}${deviceID}`
 
-        fetch(recordsAPIURL)
-        .then((response) => response.json())
-        .then((data) => {
-
-            const boxContainer = document.querySelector('#box-container');
-
-            if (boxContainer) {
-                if (data != false) {
-                    for (const record of data) {
-                        const deviceName = record['device_name']
-                        const deviceID = record['id']
-                        const location = record['location']
-                        const viewRecordsURL = recordsURL + record['id']
-                        const latestrecord = record['records'][record['records'].length - 1]
-                        const waterCleanHTML = `<td class="has-text-success has-text-right"><span id="water-stat-${deviceID}">clean</span></td>`
-                        const waterDirtyHTML = `<td class="has-text-white has-background-danger has-text-right"><span id="water-stat-${deviceID}">dirty</span></td>`
-                        const waterNoRecHTML = `<td><span id="water-stat-${deviceID}">No records yet</span></td>`
-
-                        const valveOffHTML = `<td><input onclick="toggleValve(${deviceID}, this)" class="toggle" type="checkbox"/></td>`
-                        const valveOnHTML = `<td><input onclick="toggleValve(${deviceID}, this)" class="toggle" type="checkbox" checked/></td>`
-
-                        if (latestrecord != undefined) {
-                            boxContainer.insertAdjacentHTML('beforeend', `<div class="column is-5 mb-6"><div class="box"><h5 class="title is-5 has-text-centered">${deviceName}</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Water Quality</td>${latestrecord['water_status'] == '' ? waterNoRecHTML : (latestrecord['water_status'] == 'clean' ? waterCleanHTML : waterDirtyHTML)}</tr><tr><td>Valve Status</td>${latestrecord['valve_status'] == 'on' ? valveOnHTML : valveOffHTML}</tr><tr><td>Location</td><td><span>${location}</span></td></tr><tr><td>Turbidity Records</td><td><a href="${viewRecordsURL}">View Records</a></td></tr></tbody></table></div></div>`)
-                        } else {
-                            boxContainer.insertAdjacentHTML('beforeend', `<div class="column is-5 mb-6"><div class="box"><h5 class="title is-5 has-text-centered">${deviceName}</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Water Quality</td>${waterNoRecHTML}</tr><tr><td>Valve Status</td>${valveOffHTML}</tr><tr><td>Location</td><td><span>${location}</span></td></tr><tr><td>Turbidity Records</td><td><a href="${viewRecordsURL}">View Records</a></td></tr></tbody></table></div></div>`)
-                        }
-                    }
-                } else {
-                    boxContainer.insertAdjacentHTML('beforeend' , `<div class="column is-5 mb-6"><a href="${addDeviceURL}"><div class="box box-blank"><div class="content vh-center"><i class="fa fa-plus fa-6x has-text-grey"></i><h2 class="title is-2 has-text-grey">Add Device</h2></div></div></a></div>`)
-                }
-            }
-
-        });     
+        boxContainer.insertAdjacentHTML('beforeend' , `<div class="column is-5 mb-6"><div class="box"  data-id="${deviceID}"><h5 class="title is-5 has-text-centered" id="deviceName">${deviceName}</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Water Quality</td><td><span id="waterStatus">No records yet</span></td></tr><tr><td>Valve Status</td><td><input class="toggle" type="checkbox" id="valveStatus"></td></tr><tr><td>Location</td><td><span id="location">${location}</span></td></tr><tr><td>Turbidity Records</td><td><a id="viewRecords" href="${deviceRecordURL}">View Records</a></td></tr></tbody></table></div></div>`)
     }
+
+    function addDeviceHTML() {
+        const boxContainer = document.querySelector('#box-container');
+        const addDeviceURL = window.location.origin + '/add-device/'
+
+        boxContainer.insertAdjacentHTML('beforeend' , `<div class="column is-5 mb-6"><a href="${addDeviceURL}"><div class="box box-blank"><div class="content vh-center"><i class="fa fa-plus fa-6x has-text-grey"></i><h2 class="title is-2 has-text-grey">Add Device</h2></div></div></a></div>`)
+    }
+
+    function displayDashboard() {
+        const recordsAPIURL = window.location.origin + '/api/device-records/'
+        const boxContainer = document.querySelector('#box-container');
+
+        if (boxContainer) {
+            axios.get(recordsAPIURL)
+            .then(resp => {
+                const data = resp.data
+
+                if (data.length == 0) {
+                    addDeviceHTML();
+                } else {
+                    data.forEach(record => deviceHTML(record, boxContainer))
+                }
+            })
+            .then(toggleValve)
+            .catch(err => console.log(err))
+        }
+    }
+
+    displayDashboard();
 
 
     // valve control
-    async function toggleValve(deviceID, el) {
-        const waterStat = document.getElementById(`water-stat-${deviceID}`).textContent;
-        const waterStatText = (waterStat == 'No records yet' ? '' : waterStat)
-        const recordsAPIURL = window.location.origin + '/api/turbidity-records/'
-        const valveStat = el.checked ? "on" :  "off"
+    function toggleValve() {
+        // html
+        const boxes = document.querySelectorAll('.box')
+        boxes.forEach(box => {
+            const toggleEl = box.querySelector('#valveStatus')
+            toggleEl.addEventListener('click', (toggleEl) => {
+                updateDeviceRecord(toggleEl, box)
+            })
+        })
+    }
+
+    function updateDeviceRecord(toggleEl, boxEl) {
+        // url
+        const deviceID = boxEl.getAttribute('data-id')
+        const recordsAPIURL = window.location.origin + '/api/device-records/'
+        const deviceRecordAPIURL = `${recordsAPIURL}${deviceID}`
+
+        // html
+        const valveStat = toggleEl.target.checked ? 'on' : 'off'
+        const waterStatElement = boxEl.querySelector('#waterStatus').textContent
+        const waterStat = waterStatElement == 'No records yet' ? '' : waterStat
         const csrf = document.querySelector('input[name=csrfmiddlewaretoken]').value
-        const user = document.querySelector('#boxDetector').getAttribute('data-id')
+        const user = document.querySelector('#username').textContent
         const details = `User ${user} has manually turned ${valveStat.toUpperCase()} the valve.`
 
-
-        data = {
+        postData = {
             'valve_status': valveStat,
-            'water_status': waterStatText,
-            'record_image': '',
+            'water_status': waterStat,
             'record_device': deviceID,
-            'details': details
+            'record_image': '',
+            'details': details,
         }
-        
-        fetch(recordsAPIURL + deviceID, {
-            method: 'PUT',
+
+        axios.post(deviceRecordAPIURL, postData, {
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrf,
-            },
-            body: JSON.stringify(data),
+                "Content-Type": "application/json",
+                "X-CSRFTOKEN": csrf,
+            }
         })
-            .then((response) => response.json())
-            // .then((data) => console.log(data))
-            .then(() => location.reload())
+            .then(resp => {
+                const deviceID = resp.data['record_device']
+                getLatestRecord(deviceID)
+            })
+            .catch(err => console.log(err))
+        
     }
+
+    function getLatestRecord(deviceID) {
+        console.log(deviceID)
+    }
+
+    
+    // async function toggleValve(deviceID, el) {
+    //     const waterStat = document.getElementById(`water-stat-${deviceID}`).textContent;
+    //     const waterStatText = (waterStat == 'No records yet' ? '' : waterStat)
+    //     const recordsAPIURL = window.location.origin + '/api/turbidity-records/'
+    //     const valveStat = el.checked ? "on" :  "off"
+    //     const csrf = document.querySelector('input[name=csrfmiddlewaretoken]').value
+    //     const user = document.querySelector('#boxDetector').getAttribute('data-id')
+    //     const details = `User ${user} has manually turned ${valveStat.toUpperCase()} the valve.`
+
+
+    //     data = {
+    //         'valve_status': valveStat,
+    //         'water_status': waterStatText,
+    //         'record_image': '',
+    //         'record_device': deviceID,
+    //         'details': details
+    //     }
+        
+    //     fetch(recordsAPIURL + deviceID, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'X-CSRFToken': csrf,
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //         .then((response) => response.json())
+    //         // .then((data) => console.log(data))
+    //         .then(() => location.reload())
+    // }
 </script>
