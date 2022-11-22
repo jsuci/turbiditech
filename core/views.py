@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from core.models import Device, Component, TurbidityRecord, CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from core.decorators import device_user_only, component_user_only
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # forms
@@ -154,11 +155,26 @@ def dashboard(request):
 @device_user_only
 def turbidity_records(request, device_id):
 
-    records = Device.objects.filter(id=device_id).values(
+    records_list = Device.objects.filter(id=device_id).values(
         'device_name', 'records__id', 'records__record_date',
         'records__record_time', 'records__record_image',
         'records__valve_status', 'records__water_status',
         'records__details').order_by('-records__id')
+
+    # Paginator accepts a queryset obj and the
+    # number of pages to be displayed
+    page = request.GET.get('page', 1)
+    paginator = Paginator(records_list, per_page=7)
+
+
+    try:
+        records = paginator.page(page)
+    except PageNotAnInteger:
+        records = paginator.page(1)
+    except EmptyPage:
+        records = paginator.page(paginator.num_pages)
+
+    records.adjusted_elided_pages = paginator.get_elided_page_range(page, on_each_side=1)
 
     # filter records via device id and date
     # records = Device.objects.filter(

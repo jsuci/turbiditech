@@ -239,3 +239,9 @@ div.box td:nth-child(2) {
     padding: 30px 0;
     text-align: center;
 }
+
+
+/* pagination */
+.pagination-link {
+    background-color: #fff;
+}
