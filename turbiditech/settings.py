@@ -144,7 +144,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Manila'
 USE_I18N = True
 USE_TZ = True
 
@@ -197,13 +198,6 @@ PASSWORD_RESET_TIMEOUT = 14400
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-
-
-# rest framework settings
-# REST_FRAMEWORK = {
-#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-#     'PAGE_SIZE': 20
-# }
 
 
 # django-resized config
