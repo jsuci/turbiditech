@@ -304,10 +304,13 @@
             .then(resp => {
                 // data
                 const data = resp.data
-                data.forEach(record => refreshDashboardHTML(record))
+                    data.forEach(record => {
+                        if (record.records.length != 0) {
+                            refreshDashboardHTML(record)
+                        }
+                    })
             })
             .then(refreshMessage())
-            .then(console.log('updating dashboard...'))
             .catch(err => console.log(err))
         }
     }
