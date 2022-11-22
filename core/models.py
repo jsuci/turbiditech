@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django_resized import ResizedImageField
+from django.utils.crypto import get_random_string
 
 
 
@@ -46,7 +47,8 @@ class CustomUserManager(BaseUserManager):
 
 
 def profile_img_path(self, filename):
-    return f'profile_images/{self.pk}/profile.jpg'
+    unique_id = get_random_string(length=6)
+    return f'profile_images/{self.pk}/{unique_id}.jpg'
 
 class CustomUser(AbstractBaseUser):
 
