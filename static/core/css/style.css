@@ -245,3 +245,14 @@ div.box td:nth-child(2) {
 .pagination-link {
     background-color: #fff;
 }
+
+/* records styling */
+.is-on {
+    color:#000000;
+    background-color: #afdbbb;
+}
+
+.is-off {
+    color:#000000;
+    background-color: #ffadad;
+}

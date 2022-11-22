@@ -28,8 +28,6 @@
                             <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                                 <thead>
                                     <tr>
-                                        <!-- <th>ID</th> -->
-                                        <!-- <th>Device</th> -->
                                         <th>Date</th>
                                         <th>Time</th>
                                         <th>Image Link</th>
@@ -42,13 +40,28 @@
                                     {% for record in records %}
                                         {% if record.records__id != null %}
                                             <tr>
-                                                <!-- <td>{{ record.records__id }}</td> -->
-                                                <!-- <td>{{ record.device_name }}</td> -->
                                                 <td>{{ record.records__record_date }}</td>
                                                 <td>{{ record.records__record_time }}</td>
                                                 <td><a href="{{ record.records__record_image }}" target="_blank">{{ record.records__record_image }}</a></td>
-                                                <td>{{ record.records__valve_status }}</td>
-                                                <td>{{ record.records__water_status }}</td>
+
+                                                {% if record.records__valve_status == 'on' %}
+                                                    <td class="is-on">{{ record.records__valve_status }}</td>
+                                                {% elif record.records__valve_status == '' %}
+                                                    <td>{{ record.records__valve_status }}</td>
+                                                {% else %}
+                                                    <td class="is-off">{{ record.records__valve_status }}</td>
+                                                {% endif %}
+
+                                                {% if record.records__water_status == 'on' %}
+                                                    <td class="is-on">{{ record.records__water_status }}</td>
+                                                {% elif record.records__water_status == '' %}
+                                                    <td>{{ record.records__water_status }}</td>
+                                                {% else %}
+                                                    <td class="is-off">{{ record.records__water_status }}</td>
+                                                {% endif %}
+                                               
+
+
                                                 <td>{{ record.records__details }}</td>
                                             </tr>
                                         {% else %}
