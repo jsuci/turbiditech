@@ -21,7 +21,7 @@
 
                 <div class="panel is-primary has-background-white">
                     <p class="panel-heading">
-                        Records
+                        List Records
                     </p>
                     <div class="panel-block">
                         <div class="table-container is-full-width">
@@ -77,24 +77,8 @@
                 
                 </div> <!-- end panel -->
 
-
-
                 {% if records.has_other_pages %}
                     <nav class="pagination" role="navigation" aria-label="pagination">
-
-                        {% if records.has_previous %}
-                            <a class="pagination-previous has-background-white-bis" href="?page={{ records.previous_page_number }}">Previous</a>
-                        {% else %}
-                            <a class="pagination-previous is-disabled">Previous</a>
-                        {% endif %}
-
-
-                        {% if records.has_next %}
-                            <a class="pagination-next has-background-white-bis" href="?page={{ records.next_page_number  }}">Next page</a>
-                        {% else %}
-                            <a class="pagination-next is-disabled">Next page</a>
-                        {% endif %}
-
                         
                         <ul class="pagination-list">
                             {% for page_number in records.adjusted_elided_pages   %}
@@ -110,8 +94,67 @@
                                 {% endif %}
                             {% endfor %}
                         </ul>
+
+
+                        {% if records.has_previous %}
+                            <a class="pagination-previous has-background-white-bis" href="?page={{ records.previous_page_number }}">Previous</a>
+                        {% else %}
+                            <a class="pagination-previous is-disabled">Previous</a>
+                        {% endif %}
+
+
+                        {% if records.has_next %}
+                            <a class="pagination-next has-background-white-bis" href="?page={{ records.next_page_number  }}">Next page</a>
+                        {% else %}
+                            <a class="pagination-next is-disabled">Next page</a>
+                        {% endif %}
                     </nav>
                 {% endif %}
+
+                <div class="panel is-primary panel-gap">
+                    <p class="panel-heading">
+                        Delete Records
+                    </p>
+                    <div class="panel-content p-3 has-background-white mb-6">
+
+                        <div class="field">
+
+                            <div class="field">
+                                <div class="field-body">
+                                  <div class="field is-expanded">
+                                    <div class="field">
+                                      <p class="control is-expanded">
+                                        <input class="input" type="date">
+                                      </p>
+                                    </div>
+                                    <p class="help">Start Date</p>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="field-body">
+                                  <div class="field is-expanded">
+                                    <div class="field">
+                                      <p class="control is-expanded">
+                                        <input class="input" type="date">
+                                      </p>
+                                    </div>
+                                    <p class="help">End Date</p>
+                                  </div>
+                                </div>
+                            </div>
+
+
+                            <div class="buttons is-right">
+                                <button class="button is-danger" type="submit">
+                                        Delete
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
 
 
             </div> <!-- end column is-variable -->

@@ -240,11 +240,21 @@ div.box td:nth-child(2) {
     text-align: center;
 }
 
+.panel-gap {
+    margin-top: 6em;
+}
+
+.panel-content {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
 
 /* pagination */
 .pagination-link {
     background-color: #fff;
 }
+
 
 /* records styling */
 .is-on {
@@ -256,3 +266,4 @@ div.box td:nth-child(2) {
     color:#000000;
     background-color: #ffadad;
 }
+
