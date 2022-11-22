@@ -153,7 +153,7 @@ def dashboard(request):
 
 @login_required
 @device_user_only
-def turbidity_records(request, device_id):
+def device_records(request, device_id):
 
     records_list = Device.objects.filter(id=device_id).values(
         'device_name', 'records__id', 'records__record_date',
@@ -190,7 +190,7 @@ def turbidity_records(request, device_id):
         'records': records
     }
 
-    return render(request, 'turbidity-records.html', context)
+    return render(request, 'device-records.html', context)
 
 
 @login_required

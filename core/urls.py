@@ -36,7 +36,7 @@ urlpatterns = [
 
 
     # application
-    path('turbidity-records/<int:device_id>', views.turbidity_records, name='turbidity_records'),
+    path('device-records/<int:device_id>', views.device_records, name='device_records'),
     path('list-devices/', views.list_devices, name='list_devices'),
     path('add-device/', views.add_device, name='add_device'),
     path('add-component/', views.add_component, name='add_component'),
