@@ -55,7 +55,13 @@
                 }),
             ])
                 .then(axios.spread((postImage) => {
+                    const imgProfile = document.getElementById('img-profile');
+                    const imgOverlay = document.getElementById('id-img-overlay')
+
                     imageToDisplay.src = postImage.data.profile_image
+                    imgProfile.style.opacity = "1"
+                    imgOverlay.style.opacity = "0"
+                    
                 }))
                 .catch(err => console.log(err))
 
@@ -105,6 +111,15 @@
     }
 
 
+    function defaultProfilePhoto() {
+        const imageToDisplay = document.getElementById('img-profile')
+        axios.get(imageToDisplay.src)
+        .catch(err => {
+            const root = location.protocol + '//' + location.host;
+            const defaultProfile = '/static/core/img/profile.png'
+            imageToDisplay.src = `${root}${defaultProfile}`
+        })
+    }
 
     // create dashboard
     function addDeviceHTML(record, boxContainer) {
@@ -317,6 +332,7 @@
 
 
     // function calls
+    defaultProfilePhoto()
     enableOverlay();
     createRefreshDashboard();
 
