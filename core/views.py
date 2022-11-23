@@ -187,7 +187,7 @@ def device_records(request, device_id):
         start_date = request.POST['start_date']
         end_date = request.POST['end_date']
 
-        if start_date < end_date:
+        if start_date <= end_date:
             filtered_results = TurbidityRecord.objects.filter(
                     record_device=device_id, record_date__range=[start_date, end_date])
 
@@ -204,8 +204,6 @@ def device_records(request, device_id):
     return render(request, 'device-records.html', context)
 
         
-
-
 @login_required
 def list_devices(request):
     # notification message after successful form submit
