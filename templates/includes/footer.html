@@ -1,25 +1,5 @@
 <script>
 
-    $(document).ready(function() {
-
-        // navbar menu toggle
-        $('.sub-btn').click(function() {
-            $(this).next('.sub-menu').slideToggle();
-            $(this).find('.dropdown').toggleClass('rotate');
-        });
-        
-        $('.menu-btn').click(function() {
-            $('.side-bar').addClass('active');
-            $('.menu-btn').css("visibility", "hidden");
-        });
-
-        $('.close-btn').click(function() {
-            $('.side-bar').removeClass('active');
-            $('.menu-btn').css("visibility", "visible");
-        });
-
-    });
-
 
     document.addEventListener('DOMContentLoaded', () => {
         
@@ -65,6 +45,53 @@
             closeAllModals();
             }
         });
+
+
+        // navbar menu toggle
+        $('.sub-btn').click(function() {
+            $(this).next('.sub-menu').slideToggle();
+            $(this).find('.dropdown').toggleClass('rotate');
+        });
+        
+        $('.menu-btn').click(function() {
+            $('.side-bar').addClass('active');
+            $('.menu-btn').css("visibility", "hidden");
+        });
+
+        $('.close-btn').click(function() {
+            $('.side-bar').removeClass('active');
+            $('.menu-btn').css("visibility", "visible");
+        });
+
+
+        // event listeners for modals
+
+        // delete records modal
+        const deleteRecordsForm = document.querySelector('#delete-records-form')
+        deleteRecordsForm.addEventListener('submit', e => {
+            // e.preventDefault()
+            const startDateVal = $('#id_start_date').val()
+            const endDateVal = $('#id_end_date').val()
+            const csrf = document.querySelector('#delete-records-form > input[name=csrfmiddlewaretoken]').value
+
+            const postDateData = {
+                'start_date': startDateVal,
+                'end_date': endDateVal
+            }
+
+            axios.post(window.location.href, postDateData, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFTOKEN': csrf,
+                }
+            })
+                .then(resp => {
+                    console.log(resp)
+                })
+                .catch(err => console.log(err))
+        })
+
+
     });
 
 
@@ -202,7 +229,7 @@
         const boxContainer = document.querySelector('#box-container');
         const addDeviceURL = window.location.origin + '/add-device/'
 
-        boxContainer.insertAdjacentHTML('beforeend' , `<div class="column is-5 mb-6"><a href="${addDeviceURL}"><div class="box box-blank"><div class="content vh-center"><i class="fa fa-plus fa-6x has-text-grey"></i><h2 class="title is-2 has-text-grey">Add Device</h2></div></div></a></div>`)
+        boxContainer.insertAdjacentHTML('beforeend' , `<div class="column is-5 mb-6"><a href="${addDeviceURL}"><div class="box box-blank"><div class="content vh-center"><i class="fa fa-plus fa-6x has-text-grey"></i><h2 class="title is-2 has-text-grey mt-3">Add Device</h2></div></div></a></div>`)
     }
 
     function createRefreshDashboard() {

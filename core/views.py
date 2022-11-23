@@ -155,11 +155,16 @@ def dashboard(request):
 @device_user_only
 def device_records(request, device_id):
 
-    records_list = Device.objects.filter(id=device_id).values(
-        'device_name', 'records__id', 'records__record_date',
-        'records__record_time', 'records__record_image',
-        'records__valve_status', 'records__water_status',
-        'records__details').order_by('-records__id')
+    try:
+        records_list = TurbidityRecord.objects.filter(record_device=device_id).values(
+            'id', 'record_device', 'record_date',
+            'record_time', 'record_image', 'valve_status',
+            'water_status', 'details', 'created_on',
+            'record_device__device_name').order_by('-id')
+
+    except TurbidityRecord.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
 
     # Paginator accepts a queryset obj and the
     # number of pages to be displayed
@@ -176,21 +181,29 @@ def device_records(request, device_id):
 
     records.adjusted_elided_pages = paginator.get_elided_page_range(page, on_each_side=1)
 
-    # filter records via device id and date
-    # records = Device.objects.filter(
-    #     id=device_id,
-    #     records__record_date__range=["2022-11-11", "2022-11-19"]
-    # ).values(
-    #     'device_name', 'records__id', 'records__record_date',
-    #     'records__record_time', 'records__record_image',
-    #     'records__valve_status', 'records__water_status',
-    #     'records__details').order_by('-records__id')
+
+    if request.method == 'POST':
+
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+
+        if start_date < end_date:
+            filtered_results = TurbidityRecord.objects.filter(
+                    record_device=device_id, record_date__range=[start_date, end_date])
+
+            filtered_results.delete()
+
+        else:
+            messages.info(request, 'Invalid start and end date.')
+
 
     context = {
         'records': records
     }
 
     return render(request, 'device-records.html', context)
+
+        
 
 
 @login_required
@@ -307,3 +320,4 @@ def delete_component(request, component_id):
     selected_component.delete()
     
     return redirect('list_devices')
+

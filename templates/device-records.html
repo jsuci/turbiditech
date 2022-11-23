@@ -38,31 +38,31 @@
                                 </thead>
                                 <tbody>
                                     {% for record in records %}
-                                        {% if record.records__id != null %}
+                                        {% if record.id != null %}
                                             <tr>
-                                                <td>{{ record.records__record_date }}</td>
-                                                <td>{{ record.records__record_time }}</td>
-                                                <td><a href="{{ record.records__record_image }}" target="_blank">{{ record.records__record_image }}</a></td>
+                                                <td>{{ record.record_date }}</td>
+                                                <td>{{ record.record_time }}</td>
+                                                <td><a href="{{ record.record_image }}" target="_blank">{{ record.record_image }}</a></td>
 
-                                                {% if record.records__valve_status == 'on' %}
-                                                    <td class="is-on">{{ record.records__valve_status }}</td>
-                                                {% elif record.records__valve_status == '' %}
-                                                    <td>{{ record.records__valve_status }}</td>
+                                                {% if record.valve_status == 'on' %}
+                                                    <td class="is-on">{{ record.valve_status }}</td>
+                                                {% elif record.valve_status == '' %}
+                                                    <td>{{ record.valve_status }}</td>
                                                 {% else %}
-                                                    <td class="is-off">{{ record.records__valve_status }}</td>
+                                                    <td class="is-off">{{ record.valve_status }}</td>
                                                 {% endif %}
 
-                                                {% if record.records__water_status == 'on' %}
-                                                    <td class="is-on">{{ record.records__water_status }}</td>
-                                                {% elif record.records__water_status == '' %}
-                                                    <td>{{ record.records__water_status }}</td>
+                                                {% if record.water_status == 'on' %}
+                                                    <td class="is-on">{{ record.water_status }}</td>
+                                                {% elif record.water_status == '' %}
+                                                    <td>{{ record.water_status }}</td>
                                                 {% else %}
-                                                    <td class="is-off">{{ record.records__water_status }}</td>
+                                                    <td class="is-off">{{ record.water_status }}</td>
                                                 {% endif %}
                                                
 
 
-                                                <td>{{ record.records__details }}</td>
+                                                <td>{{ record.details }}</td>
                                             </tr>
                                         {% else %}
                                             <tr>
@@ -115,46 +115,71 @@
                     <p class="panel-heading">
                         Delete Records
                     </p>
-                    <div class="panel-content p-3 has-background-white mb-6">
+                    <div class="panel-content p-3 has-background-white">
 
-                        <div class="field">
-
-                            <div class="field">
-                                <div class="field-body">
-                                  <div class="field is-expanded">
-                                    <div class="field">
-                                      <p class="control is-expanded">
-                                        <input class="input" type="date">
-                                      </p>
-                                    </div>
-                                    <p class="help">Start Date</p>
-                                  </div>
-                                </div>
-                            </div>
+                        <form method="POST" id="delete-records-form">
+                            {% csrf_token %}
 
                             <div class="field">
                                 <div class="field-body">
-                                  <div class="field is-expanded">
-                                    <div class="field">
-                                      <p class="control is-expanded">
-                                        <input class="input" type="date">
-                                      </p>
+                                    <div class="field is-expanded">
+                                        <div class="field">
+                                            <p class="control is-expanded">
+                                                <input type="date" name="start_date" class="input" required="" id="id_start_date">
+                                            </p>
+                                        </div>
+                                        <p class="help">Start Date</p>
                                     </div>
-                                    <p class="help">End Date</p>
-                                  </div>
                                 </div>
                             </div>
 
 
-                            <div class="buttons is-right">
-                                <button class="button is-danger" type="submit">
-                                        Delete
-                                </button>
+                            <div class="field">
+                                <div class="field-body">
+                                    <div class="field is-expanded">
+                                        <div class="field">
+                                            <p class="control is-expanded">
+                                                <input type="date" name="end_date" class="input" required="" id="id_end_date">
+                                            </p>
+                                        </div>
+                                        <p class="help">End Date</p>
+                                    </div>
+                                </div>
                             </div>
+
+                            {% for message in messages %}
+                                <p class="has-text-left help is-danger is-size-6 is-italic">{{ message }}</p>
+                            {% endfor %}
+
                             
-                        </div>
+                            <div class="buttons is-right">
+                                <div class="button is-danger js-modal-trigger" data-target="delete-records-modal">
+                                        Delete
+                                </div>
+                            </div>
+
+
+                            <div class="modal" id="delete-records-modal">
+                                <div class="modal-background"></div>
+                                <div class="modal-card">
+                                  <header class="modal-card-head is-borderless">
+                                    <p class="modal-card-title title">Delete Records</p>
+                                  </header>
+                                  <section class="modal-card-body">
+                                    <h3 class="title is-5 has-text-centered">Are you sure you want to delete these records?</h3>
+                                  </section>
+                                  <footer class="modal-card-foot is-justify-content-flex-end is-borderless">
+                                    <button class="button is-danger" id="delete-records" type="submit">Yes</button>
+                                    <button class="button">Cancel</button>
+                                  </footer>
+                                </div>
+                            </div>
+
+
+                        </form>
+
                     </div>
-                </div>
+                </div> <!-- end delete records -->
 
 
             </div> <!-- end column is-variable -->

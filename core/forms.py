@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, PasswordResetForm, SetPasswordForm
 
 # models
-from .models import CustomUser, Device, Component
+from .models import CustomUser, Device, Component, TurbidityRecord
 
 
 class LoginForm(ModelForm):
@@ -73,7 +73,7 @@ class ResetPasswordConfirmForm(SetPasswordForm):
         self.fields['new_password1'].widget.attrs.update({'class': 'input'})
         self.fields['new_password2'].widget.attrs.update({'class': 'input'})
 
-# use same AddDeviceForm to update device 
+
 class AddDeviceForm(ModelForm):
     class Meta:
         model       = Device
@@ -89,7 +89,6 @@ class AddDeviceForm(ModelForm):
         self.fields['install_time'].widget.input_type = 'time'
 
 
-# use same AddComponentForm to update component 
 class AddComponentForm(ModelForm):
     class Meta:
         model       = Component
