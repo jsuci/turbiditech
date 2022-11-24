@@ -34,7 +34,9 @@
 
   {% endblock %}
 
-  {% include "includes/footer.html" %}
+  {% if user.is_authenticated %}
+    {% include "includes/footer.html" %}
+  {% endif %}
 
   </body>
 </html>
