@@ -43,7 +43,7 @@
                                             <tr>
                                                 <td>{{ record.record_date }}</td>
                                                 <td>{{ record.record_time }}</td>
-                                                <td><a href="{{ record.record_image }}" target="_blank">{{ record.record_image }}</a></td>
+                                                <td><a href="/media/{{ record.record_image }}" target="_blank">{{ record.record_image | cut:'record_images/' }}</a></td>
 
                                                 {% if record.valve_status == 'on' %}
                                                     <td class="is-on">{{ record.valve_status }}</td>

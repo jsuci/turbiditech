@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 from django_resized import ResizedImageField
 from django.utils.crypto import get_random_string
-
+from django_cleanup import cleanup
 
 
 class CustomUserManager(BaseUserManager):
@@ -57,6 +57,7 @@ def profile_img_path(self, filename):
     unique_id = get_random_string(length=6)
     return f'profile_images/{self.pk}/{unique_id}.jpg'
 
+@cleanup.ignore
 class CustomUser(AbstractBaseUser):
 
     email           = models.EmailField(verbose_name='Email', max_length=60, unique=True)
@@ -89,7 +90,6 @@ class CustomUser(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
 
 
 class Device(models.Model):
@@ -129,7 +129,7 @@ class Component(models.Model):
 
 
 def record_img_path(self, filename):
-    return f'record_images/{self.record_device.lower()}/{self.record_date}-{self.record_time}.jpg'
+    return f'record_images/{self.record_date}-{self.record_time}.jpg'
 
 class TurbidityRecord(models.Model):
 
@@ -156,3 +156,4 @@ class TurbidityRecord(models.Model):
     class Meta:
         verbose_name = 'Turbidity Record'
         get_latest_by = "created_on"
+        

@@ -191,7 +191,6 @@ def device_records(request, device_id):
         if start_date <= end_date:
             filtered_results = TurbidityRecord.objects.filter(
                     record_device=device_id, record_date__range=[start_date, end_date])
-
             filtered_results.delete()
 
         else:
