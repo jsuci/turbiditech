@@ -39,6 +39,7 @@
                                 <tbody>
                                     {% for record in records %}
                                         {% if record.id != null %}
+
                                             <tr>
                                                 <td>{{ record.record_date }}</td>
                                                 <td>{{ record.record_time }}</td>
@@ -52,14 +53,13 @@
                                                     <td class="is-off">{{ record.valve_status }}</td>
                                                 {% endif %}
 
-                                                {% if record.water_status == 'on' %}
+                                                {% if record.water_status == 'clean' %}
                                                     <td class="is-on">{{ record.water_status }}</td>
                                                 {% elif record.water_status == '' %}
                                                     <td>{{ record.water_status }}</td>
                                                 {% else %}
                                                     <td class="is-off">{{ record.water_status }}</td>
                                                 {% endif %}
-                                               
 
 
                                                 <td>{{ record.details }}</td>

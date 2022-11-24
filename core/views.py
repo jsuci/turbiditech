@@ -29,6 +29,7 @@ from core.serializers import DeviceRecordSerializer, AllRecordSerializer, Custom
 # api
 @api_view(['GET', 'POST'])
 @csrf_exempt
+@parser_classes([MultiPartParser, FormParser])
 @permission_classes([IsAuthenticated])
 @device_user_only
 def api_device_records(request, device_id):
