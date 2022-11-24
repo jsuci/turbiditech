@@ -17,11 +17,14 @@ class CustomUserManager(BaseUserManager):
 
         if not last_name:
             raise ValueError('Last name must not be empty')
+        
+        if not password:
+            raise  ValueError('Password must not be empty')
 
         user = self.model(
             email=self.normalize_email(email),
             first_name=first_name,
-            last_name=last_name
+            last_name=last_name,
         )
 
         user.set_password(password)
@@ -30,7 +33,10 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-    def create_superuser(self, email, first_name, last_name, password=None):
+    def create_superuser(self, email, first_name, last_name, password):
+        
+        if password is None:
+            raise TypeError('Superusers must have a password.')
 
         user = self.create_user(
             email=email,
@@ -41,6 +47,7 @@ class CustomUserManager(BaseUserManager):
 
         user.is_admin = True
         user.is_superuser = True
+        user.is_staff = True
         user.save(using=self._db)
 
         return user
@@ -57,6 +64,7 @@ class CustomUser(AbstractBaseUser):
     last_login      = models.DateTimeField(verbose_name='Last Login', auto_now=True)
     is_active       = models.BooleanField(default=True)
     is_admin        = models.BooleanField(default=False)
+    is_staff        = models.BooleanField(default=False)
     is_superuser    = models.BooleanField(default=False)
 
     # custom user fields
@@ -82,9 +90,6 @@ class CustomUser(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
-    @property
-    def is_staff(self):
-        return self.is_admin
 
 
 class Device(models.Model):
