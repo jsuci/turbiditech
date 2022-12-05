@@ -167,8 +167,28 @@ def device_records(request, device_id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
-    # Paginator accepts a queryset obj and the
+
+
+    if request.method == 'POST':
+
+        start_date = request.POST['start_date']
+        end_date = request.POST['end_date']
+
+        if start_date <= end_date:
+            filtered_results = TurbidityRecord.objects.filter(
+                    record_device=device_id, record_date__range=[start_date, end_date])
+            last_record = filtered_results.order_by('record_time').last()
+            all_filtered_records = filtered_results.exclude(id=last_record.id)
+
+            all_filtered_records.delete()
+
+        else:
+            messages.info(request, 'Invalid start and end date.')
+
+
+    # paginator accepts a queryset obj and the
     # number of pages to be displayed
+    # recalculate number of records
     page = request.GET.get('page', 1)
     paginator = Paginator(records_list, per_page=7)
 
@@ -181,34 +201,6 @@ def device_records(request, device_id):
         records = paginator.page(paginator.num_pages)
 
     records.adjusted_elided_pages = paginator.get_elided_page_range(page, on_each_side=1)
-
-
-    if request.method == 'POST':
-
-        start_date = request.POST['start_date']
-        end_date = request.POST['end_date']
-
-        # date_today = datetime.now().strftime("%Y-%m-%d")
-
-        # if (start_date == date_today) or (end_date == date_today):
-        #     messages.info(request, 'Cannot delete record that contains the current date.')
-        # elif start_date <= end_date:
-        #     filtered_results = TurbidityRecord.objects.filter(
-        #             record_device=device_id, record_date__range=[start_date, end_date])
-        #     filtered_results.delete()
-        # else:
-        #     messages.info(request, 'Invalid start and end date.')
-
-        if start_date <= end_date:
-            filtered_results = TurbidityRecord.objects.filter(
-                    record_device=device_id, record_date__range=[start_date, end_date])
-            last_record = filtered_results.order_by('record_time').last()
-            all_filtered_records = filtered_results.exclude(id=last_record.id)
-
-            all_filtered_records.delete()
-
-        else:
-            messages.info(request, 'Invalid start and end date.')
 
 
     context = {
