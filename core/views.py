@@ -16,7 +16,7 @@ from core.models import Device, Component, TurbidityRecord, CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from core.decorators import device_user_only, component_user_only
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from datetime import datetime
+# from datetime import datetime
 
 # forms
 from . import forms
@@ -188,24 +188,27 @@ def device_records(request, device_id):
         start_date = request.POST['start_date']
         end_date = request.POST['end_date']
 
-        date_today = datetime.now().strftime("%Y-%m-%d")
+        # date_today = datetime.now().strftime("%Y-%m-%d")
 
-        if (start_date == date_today) or (end_date == date_today):
-            messages.info(request, 'Cannot delete record that contains the current date.')
-        elif start_date <= end_date:
-            filtered_results = TurbidityRecord.objects.filter(
-                    record_device=device_id, record_date__range=[start_date, end_date])
-            filtered_results.delete()
-        else:
-            messages.info(request, 'Invalid start and end date.')
-
-        # if start_date <= end_date:
+        # if (start_date == date_today) or (end_date == date_today):
+        #     messages.info(request, 'Cannot delete record that contains the current date.')
+        # elif start_date <= end_date:
         #     filtered_results = TurbidityRecord.objects.filter(
         #             record_device=device_id, record_date__range=[start_date, end_date])
         #     filtered_results.delete()
-
         # else:
         #     messages.info(request, 'Invalid start and end date.')
+
+        if start_date <= end_date:
+            filtered_results = TurbidityRecord.objects.filter(
+                    record_device=device_id, record_date__range=[start_date, end_date])
+            last_record = filtered_results.order_by('record_time').last()
+            all_filtered_records = filtered_results.exclude(id=last_record.id)
+
+            all_filtered_records.delete()
+
+        else:
+            messages.info(request, 'Invalid start and end date.')
 
 
     context = {
