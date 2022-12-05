@@ -404,9 +404,9 @@
         }
 
         if (newValveStatus == 'on') {
-            valveStatElem.querySelector('input').setAttribute('checked', '')
+            valveStatElem.querySelector('input').checked = true
         } else {
-            valveStatElem.querySelector('input').removeAttribute('checked')
+            valveStatElem.querySelector('input').checked = false
         }
     }
 
