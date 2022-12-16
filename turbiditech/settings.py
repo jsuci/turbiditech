@@ -218,5 +218,5 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = False
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 SECURE_REDIRECT_EXEMPT = [
-    r'^api/device-records/<int:device_id>$',
+    r'^api/device-records/$',
 ]
