@@ -155,5 +155,5 @@ class TurbidityRecord(models.Model):
 
     class Meta:
         verbose_name = 'Turbidity Record'
-        get_latest_by = "created_on"
+        ordering = ('created_on',)
         

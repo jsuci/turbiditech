@@ -10,6 +10,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class DeviceRecordSerializer(serializers.ModelSerializer):
 
+
     device_name = serializers.SerializerMethodField('get_device_name')
 
     class Meta:
