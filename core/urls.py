@@ -44,6 +44,6 @@ urlpatterns = [
     path('edit-component/<int:component_id>', views.edit_component, name='edit_component'),
     path('delete-device/<int:device_id>', views.delete_device, name='delete_device'),
     path('delete-component/<int:component_id>', views.delete_component, name='delete_component'),
-
+    path('admin-update/', views.admin_update, name='admin_update'),
 
 ]

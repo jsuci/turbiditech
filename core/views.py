@@ -325,3 +325,7 @@ def delete_component(request, component_id):
     
     return redirect('list_devices')
 
+
+@login_required
+def admin_update(request):
+    return render(request, 'admin-update.html', {})
