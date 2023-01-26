@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from core.models import Device, Component, TurbidityRecord, CustomUser
+from core.models import Device, Component, TurbidityRecord, CustomUser, AdminUpdate
 from django.views.decorators.csrf import csrf_exempt
 from core.decorators import device_user_only, component_user_only
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -22,7 +22,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from . import forms
 
 # serializers
-from core.serializers import DeviceRecordSerializer, AllRecordSerializer, CustomUserSerializer
+from core.serializers import (
+    DeviceRecordSerializer,
+    AllRecordSerializer,
+    CustomUserSerializer,
+    AdminUpdateSerializer
+)
 
 
 
@@ -91,6 +96,31 @@ def api_users(request, user_id):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET', 'PATCH'])
+@permission_classes([IsAuthenticated])
+def api_admin_update(request):
+    try:
+        all_admin_update = AdminUpdate.objects.filter(id=1)
+    except AdminUpdate.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = AdminUpdateSerializer(all_admin_update, many=True)
+        return Response(serializer.data)
+
+    if request.method == 'PATCH':
+        serializer = AdminUpdateSerializer(data=request.data)
+  
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+# application
 def user_login(request):
 
     if request.user.is_authenticated:

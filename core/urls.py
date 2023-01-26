@@ -9,6 +9,7 @@ urlpatterns = [
     path('api/device-records/<int:device_id>', views.api_device_records),
     path('api/users/<int:user_id>', views.api_users),
     path('api/device-records/', views.api_all_records),
+    path('api/admin-update/', views.api_admin_update),
 
     # authentication
     path('login/', views.user_login, name='user_login'),
