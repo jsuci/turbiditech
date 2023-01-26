@@ -10,13 +10,72 @@
     <div class="container">
 
         <div id="boxDetector">
+            {% csrf_token %}
             <div class="columns is-centered is-variable is-8 is-multiline mt-6">
-                <div class="column is-5 mb-6"><div class="box" data-id="2"><h5 class="title is-5 has-text-centered" id="deviceName">Admin Update</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Dark Mode</td><td><input class="toggle" type="checkbox" id="valveStatus"></td></tr><tr><td>Refresh</td><td><button class="button is-success">Refresh</button></td></tr><tr><td>Update</td><td><button class="button is-danger">Update</button></td></tr></tbody></table></div></div>
+                <div class="column is-5 mb-6"><div class="box" data-id="2"><h5 class="title is-5 has-text-centered" id="deviceName">Admin Update</h5><table class="table is-striped is-fullwidth is-hoverable"><tbody><tr><td>Dark Mode</td><td><input class="toggle" type="checkbox" id="dark-mode"></td></tr><tr><td>Refresh</td><td><button class="button is-success" id="btn-refresh">Refresh</button></td></tr><tr><td>Update</td><td><button class="button is-danger" id="btn-update">Update</button></td></tr></tbody></table></div></div>
             </div>
         </div>
 
     </div>
 </section>
+
+<script>
+
+const toggleButton = document.getElementById('dark-mode');
+const url = 'http://127.0.0.1:8000/api/admin-update/';
+
+axios.get(url)
+  .then(response => {
+    toggleButton.checked = response.data.manual;
+  })
+  .catch(error => console.log(error));
+
+toggleButton.addEventListener('click', () => {
+  const currentValue = toggleButton.checked;
+  const data = { manual: currentValue };
+  const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value
+  const headers = { 
+    'Content-Type': 'application/json',
+    'X-CSRFTOKEN': csrfToken
+  };
+
+  axios.patch(url, data, { headers: headers })
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
+});
+
+
+const btnRefresh = document.getElementById('btn-refresh');
+btnRefresh.addEventListener('click', () => {
+  const currentValue = toggleButton.checked;
+  const data = { is_clean: true };
+  const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value
+  const headers = { 
+    'Content-Type': 'application/json',
+    'X-CSRFTOKEN': csrfToken
+  };
+
+  axios.patch(url, data, { headers: headers })
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
+});
+
+const btnUpdate = document.getElementById('btn-update');
+btnUpdate.addEventListener('click', () => {
+  const currentValue = toggleButton.checked;
+  const data = { is_clean: false };
+  const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value
+  const headers = { 
+    'Content-Type': 'application/json',
+    'X-CSRFTOKEN': csrfToken
+  };
+
+  axios.patch(url, data, { headers: headers })
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
+});
+
+</script>
 
 {% endblock %}
 

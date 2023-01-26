@@ -100,16 +100,16 @@ def api_users(request, user_id):
 @permission_classes([IsAuthenticated])
 def api_admin_update(request):
     try:
-        all_admin_update = AdminUpdate.objects.filter(id=1)
+        admin_update = AdminUpdate.objects.get(id=22)
     except AdminUpdate.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = AdminUpdateSerializer(all_admin_update, many=True)
+        serializer = AdminUpdateSerializer(admin_update)
         return Response(serializer.data)
 
     if request.method == 'PATCH':
-        serializer = AdminUpdateSerializer(data=request.data)
+        serializer = AdminUpdateSerializer(admin_update, data=request.data)
   
         if serializer.is_valid():
             serializer.save()
