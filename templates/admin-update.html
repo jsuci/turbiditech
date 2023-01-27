@@ -31,7 +31,7 @@ axios.get(url)
   .then(response => {
     toggleButton.checked = response.data.manual;
     togglePause.checked = response.data.on_hold;
-    toggleRefresh.checked = response.data.is_cln;
+    toggleRefresh.checked = response.data.is_clean;
   })
   .catch(error => console.log(error));
 
