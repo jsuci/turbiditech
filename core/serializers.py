@@ -37,4 +37,4 @@ class AllRecordSerializer(serializers.ModelSerializer):
 class AdminUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = AdminUpdate
-        fields = ['manual', 'is_clean']
+        fields = ['manual', 'is_clean', 'on_hold']

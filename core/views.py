@@ -98,9 +98,9 @@ def api_users(request, user_id):
 
 @api_view(['GET', 'PATCH'])
 @permission_classes([IsAuthenticated])
-def api_admin_update(request):
+def api_admin_update(request, entry_id):
     try:
-        admin_update = AdminUpdate.objects.get(id=22)
+        admin_update = AdminUpdate.objects.get(id=entry_id)
     except AdminUpdate.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 

@@ -161,3 +161,4 @@ class TurbidityRecord(models.Model):
 class AdminUpdate(models.Model):
     manual       = models.BooleanField(default=False)
     is_clean     = models.BooleanField(default=False)
+    on_hold      = models.BooleanField(default=False)
