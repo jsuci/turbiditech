@@ -216,6 +216,8 @@
             const valveStat = latestRecord['valve_status']
 
             if (waterStat == "") {
+                waterStatElem.classList.remove('has-background-danger')
+                waterStatElem.classList.remove('has-background-primary')
                 waterStatElement.textContent = 'No records yet'
             } else {
                 waterStatElement.textContent = waterStat
@@ -400,6 +402,8 @@
             waterStatElem.classList.remove('has-background-danger')
             waterStatElem.classList.add('has-text-white', 'has-background-primary')
         } else {
+            waterStatElem.classList.remove('has-background-danger')
+            waterStatElem.classList.remove('has-background-primary')
             waterStatElem.textContent = 'No records yet'
         }
 
