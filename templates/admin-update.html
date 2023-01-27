@@ -67,7 +67,7 @@ togglePause.addEventListener('click', () => {
 
 toggleRefresh.addEventListener('click', () => {
   const currentValue = toggleRefresh.checked;
-  const data = { on_hold: currentValue };
+  const data = { is_clean: currentValue };
   const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value
   const headers = { 
     'Content-Type': 'application/json',
