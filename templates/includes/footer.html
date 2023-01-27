@@ -223,9 +223,9 @@
                 waterStatElement.textContent = waterStat
 
                 if (waterStat == 'clean') {
-                    waterStatElement.classList.add('has-text-white', 'has-background-primary')
+                    waterStatElement.classList.add('has-text-black', 'has-background-primary')
                 } else {
-                    waterStatElement.classList.add('has-text-white', 'has-background-danger')
+                    waterStatElement.classList.add('has-text-black', 'has-background-danger')
                 }
             }
             
@@ -397,10 +397,10 @@
 
         if (newWaterStatus == 'dirty') {
             waterStatElem.classList.remove('has-background-primary')
-            waterStatElem.classList.add('has-text-white', 'has-background-danger')
+            waterStatElem.classList.add('has-text-black', 'has-background-danger')
         } else if (newWaterStatus == 'clean') {
             waterStatElem.classList.remove('has-background-danger')
-            waterStatElem.classList.add('has-text-white', 'has-background-primary')
+            waterStatElem.classList.add('has-text-black', 'has-background-primary')
         } else {
             waterStatElem.classList.remove('has-background-danger')
             waterStatElem.classList.remove('has-background-primary')
