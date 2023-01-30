@@ -50,21 +50,6 @@ toggleButton.addEventListener('click', () => {
 });
 
 
-togglePause.addEventListener('click', () => {
-  const currentValue = togglePause.checked;
-  const data = { on_hold: currentValue };
-  const csrfToken = document.querySelector('input[name=csrfmiddlewaretoken]').value
-  const headers = { 
-    'Content-Type': 'application/json',
-    'X-CSRFTOKEN': csrfToken
-  };
-
-  axios.patch(url, data, { headers: headers })
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
-});
-
-
 toggleRefresh.addEventListener('click', () => {
   const currentValue = toggleRefresh.checked;
   const data = { is_clean: currentValue };
