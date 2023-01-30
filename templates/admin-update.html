@@ -29,7 +29,6 @@ const url = 'https://turbiditech.fly.dev/api/admin-update/22';
 axios.get(url)
   .then(response => {
     toggleButton.checked = response.data.manual;
-    togglePause.checked = response.data.on_hold;
     toggleRefresh.checked = response.data.is_clean;
   })
   .catch(error => console.log(error));
