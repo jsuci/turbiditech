@@ -157,8 +157,3 @@ class TurbidityRecord(models.Model):
         verbose_name = 'Turbidity Record'
         ordering = ('created_on',)
         
-
-class AdminUpdate(models.Model):
-    manual       = models.BooleanField(default=False)
-    is_clean     = models.BooleanField(default=False)
-    on_hold      = models.BooleanField(default=False)

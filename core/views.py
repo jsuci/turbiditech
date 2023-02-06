@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from core.models import Device, Component, TurbidityRecord, CustomUser, AdminUpdate
+from core.models import Device, Component, TurbidityRecord, CustomUser
 from django.views.decorators.csrf import csrf_exempt
 from core.decorators import device_user_only, component_user_only
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -26,7 +26,6 @@ from core.serializers import (
     DeviceRecordSerializer,
     AllRecordSerializer,
     CustomUserSerializer,
-    AdminUpdateSerializer
 )
 
 
@@ -94,29 +93,6 @@ def api_users(request, user_id):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'PATCH'])
-@permission_classes([IsAuthenticated])
-def api_admin_update(request, entry_id):
-    try:
-        admin_update = AdminUpdate.objects.get(id=entry_id)
-    except AdminUpdate.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = AdminUpdateSerializer(admin_update)
-        return Response(serializer.data)
-
-    if request.method == 'PATCH':
-        serializer = AdminUpdateSerializer(admin_update, data=request.data)
-  
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 
@@ -355,7 +331,3 @@ def delete_component(request, component_id):
     
     return redirect('list_devices')
 
-
-@login_required
-def admin_update(request):
-    return render(request, 'admin-update.html', {})

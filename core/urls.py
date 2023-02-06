@@ -9,7 +9,6 @@ urlpatterns = [
     path('api/device-records/<int:device_id>', views.api_device_records),
     path('api/users/<int:user_id>', views.api_users),
     path('api/device-records/', views.api_all_records),
-    path('api/admin-update/<int:entry_id>', views.api_admin_update),
 
     # authentication
     path('login/', views.user_login, name='user_login'),
@@ -45,6 +44,6 @@ urlpatterns = [
     path('edit-component/<int:component_id>', views.edit_component, name='edit_component'),
     path('delete-device/<int:device_id>', views.delete_device, name='delete_device'),
     path('delete-component/<int:component_id>', views.delete_component, name='delete_component'),
-    path('admin-update/', views.admin_update, name='admin_update'),
+
 
 ]

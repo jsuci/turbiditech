@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from core.models import Device, TurbidityRecord, CustomUser, AdminUpdate
-
+from core.models import Device, TurbidityRecord, CustomUser
 
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -34,7 +33,3 @@ class AllRecordSerializer(serializers.ModelSerializer):
         ]
 
 
-class AdminUpdateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AdminUpdate
-        fields = ['manual', 'is_clean', 'on_hold']
